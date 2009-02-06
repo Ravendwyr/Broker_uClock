@@ -1,0 +1,24 @@
+## Interface: 30000
+## Title: FuBar - |cff00ff00u|cffffffffClock|r
+## Notes: Time/date display.
+## Author: Ethan Centaurai
+## Version: 2.0.12
+## X-Category: Miscellaneous
+## X-eMail: ethan.centaurai@live.co.uk
+## X-Donate: PayPal:ethan.centaurai@live.co.uk
+## X-Embeds: Ace2, FuBarPlugin-2.0
+## OptionalDeps: Ace2, FuBar
+## SavedVariables: uClockDB
+
+#@no-lib-strip@
+Lib\AceLibrary\AceLibrary.lua
+Lib\AceOO-2.0\AceOO-2.0.lua
+Lib\AceEvent-2.0\AceEvent-2.0.lua
+Lib\AceDB-2.0\AceDB-2.0.lua
+Lib\AceAddon-2.0\AceAddon-2.0.lua
+Lib\Dewdrop-2.0\Dewdrop-2.0.lua
+Lib\FuBarPlugin-2.0\FuBarPlugin-2.0.lua
+#@end-no-lib-strip@
+
+Core.lua
+
