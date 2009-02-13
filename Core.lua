@@ -1,64 +1,91 @@
 
-uClock = AceLibrary("AceAddon-2.0"):new("AceDB-2.0", "AceEvent-2.0", "FuBarPlugin-2.0")
-uClock.hasIcon = "Interface\\Icons\\INV_Misc_PocketWatch_02"
-uClock.blizzardTooltip = true
-uClock.cannotHideText = true
+local dropDownMenu, db
 
-uClock:RegisterDB("uClockDB")
-uClock:RegisterDefaults('profile', { twentyFour = true, showSeconds = false })
+local uClock = LibStub("AceAddon-3.0"):NewAddon("uClock", 'AceTimer-3.0')
+local uClockBlock = LibStub("LibDataBroker-1.1"):NewDataObject("uClock", {
+	type = "data source",
+	icon = "Interface\\Icons\\INV_Misc_PocketWatch_02",
+
+	OnClick = function(self, button)
+		if button == "LeftButton" then
+			if IsShiftKeyDown() then
+				if GroupCalendar then GroupCalendar.ToggleCalendarDisplay()
+				else ToggleCalendar() end
+			else
+				ToggleTimeManager()
+			end
+		elseif button == "RightButton" then
+			ToggleDropDownMenu(1, nil, dropDownMenu, "cursor")
+		end
+	end,
+
+	OnTooltipShow = function(tooltip)
+		tooltip:AddDoubleLine("Server Time", uClock:GetTimeString(GetGameTime()))
+		tooltip:AddDoubleLine("Today's Date", date("%A, %B %d, %Y"))
+		tooltip:AddLine(" ")
+		tooltip:AddLine("|cffeda55fClick|r to toggle the Time Manager.", 0.2, 1, 0.2)
+		tooltip:AddLine("|cffeda55fShift-Click|r to toggle the Calendar.", 0.2, 1, 0.2)
+		tooltip:AddLine("|cffeda55fRight-Click|r for options.", 0.2, 1, 0.2)
+	end,
+})
+
 
 
 function uClock:OnEnable()
-	self:ScheduleRepeatingEvent(self.UpdateDisplay, 1, self)
-	self.OnMenuRequest = {
-		type = 'group',
-		args = {
-			twentyFour = {
-				name = "24 Hour Mode",
-				desc = "Choose whether to have the time shown in 12-hour or 24-hour format,",
-				type = "toggle", order = 1,
-				get = function() return self.db.profile.twentyFour end,
-				set = function() self.db.profile.twentyFour = not self.db.profile.twentyFour end,
-			},
-			showSeconds = {
-				name = "Show Seconds",
-				desc = "Choose whether to show seconds.",
-				type = "toggle", order = 2,
-				get = function() return self.db.profile.showSeconds end,
-				set = function() self.db.profile.showSeconds = not self.db.profile.showSeconds end,
-			},
-		},
-	}
-end
+	self.db = LibStub("AceDB-3.0"):New("uClockDB", { profile = { twentyFour = true, showSeconds = false }}, "Default")
+	db = self.db.profile
 
-function uClock:OnTextUpdate()
-	self:SetText(self:GetTimeString(date("%H"), date("%M"), true))
-end
+	dropDownMenu = CreateFrame("Frame")
+	dropDownMenu.displayMode = "MENU"
+	dropDownMenu.info = {}
+	dropDownMenu.levelAdjust = 0
+	dropDownMenu.initialize = function(self, level, value)
+		if not level then return end
 
-function uClock:OnTooltipUpdate()
-	local hour, minute = GetGameTime()
+		local info = self.info
+		wipe(info)
 
-	GameTooltip:AddDoubleLine("Server Time", self:GetTimeString(hour, minute))
-	GameTooltip:AddDoubleLine("Today's Date", date("%A, %B %d, %Y"))
-	GameTooltip:AddLine(" ")
-	GameTooltip:AddLine("|cffeda55fClick|r to toggle the Time Manager.", 0.2, 1, 0.2)
-	GameTooltip:AddLine("|cffeda55fShift-Click|r to toggle the Calendar.", 0.2, 1, 0.2)
-end
+		if level == 1 then
+			info.isTitle = 1
+			info.text = "uClock"
+			info.notCheckable = true
+			UIDropDownMenu_AddButton(info, level)
 
-function uClock:OnClick(button)
-	if button == "LeftButton" then
-		if IsShiftKeyDown() then
-			if GroupCalendar then
-				GroupCalendar.ToggleCalendarDisplay()
-			else
-				ToggleCalendar()
-			end
-		else
-			ToggleTimeManager()
+			info.disabled = nil
+			info.isTitle = nil
+			info.notCheckable = nil
+			info.keepShownOnClick = 1
+
+			info.text = "24 Hour Mode"
+			info.func = function() db.twentyFour = not db.twentyFour uClock:UpdateText() end
+			info.checked = function() return db.twentyFour end
+			UIDropDownMenu_AddButton(info, level)
+
+			info.text = "Show Seconds"
+			info.func = function() db.showSeconds = not db.showSeconds uClock:UpdateText() end
+			info.checked = function() return db.showSeconds end
+			UIDropDownMenu_AddButton(info, level)
+
+			wipe(info)
+
+			info.disabled = 1
+			info.text = nil
+			info.func = nil
+			UIDropDownMenu_AddButton(info, level)
+
+			info.disabled = nil
+			info.text = CLOSE
+			info.func = function() if UIDROPDOWNMENU_OPEN_MENU == dropDownMenu then CloseDropDownMenus() end end
+			UIDropDownMenu_AddButton(info, level)
 		end
 	end
+
+	self:ScheduleRepeatingTimer("UpdateText", 1)
 end
 
+function uClock:UpdateText()
+	uClockBlock.text = self:GetTimeString(date("%H"), date("%M"), true)
+end
 
 function uClock:GetTimeString(hour, minute, color)
 	local time, pm
