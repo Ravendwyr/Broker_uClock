@@ -1,6 +1,6 @@
 ## Interface: 30000
 ## Title: Broker uClock
-## Notes: Minimalistic time/date plugin for Broker.
+## Notes: Minimalistic time/date plugin for LibDataBroker-1.1.
 ## Author: Ethan Centaurai
 ## Version: @project-version@
 ## X-Category: Miscellaneous
@@ -13,6 +13,7 @@ Lib\LibStub\LibStub.lua
 Lib\CallbackHandler-1.0\CallbackHandler-1.0.lua
 Lib\AceAddon-3.0\AceAddon-3.0.lua
 Lib\AceDB-3.0\AceDB-3.0.lua
+Lib\AceTimer-3.0\AceTimer-3.0.lua
 Lib\LibDataBroker-1.1\LibDataBroker-1.1.lua
 #@end-no-lib-strip@
 
