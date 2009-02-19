@@ -1,0 +1,26 @@
+Version 3.0
+- Re-written to use Ace3 and LibDataBroker-1.1.
+
+Version 2.0.12
+- Removed unused libraries to shrink download file size.
+
+Version 2.0.11
+- Added an icon (can be disabled).
+- Added hints to the tooltip.
+- Shift-clicking the plugin should now toggle GroupCalender if it is installed, or Blizzard's Calendar if not.
+
+Version 2.0.9a
+- Bugfixes. Coding in the middle of the night is bad, m'kay?
+
+Version 2.0.8
+- Having the "Show Coloured Text" option enabled should now make the text white instead of FuBar's default yellow.
+
+Version 2.0.7
+- Updated .toc for Patch 3.0.2.
+- Added Server Time display. Game Time can now be found in the tooltip.
+- Added options to show seconds and show 12hr format.
+- Shift-clicking the plugin will now toggle Blizzard's Calendar.
+- Right-clicking the plugin will show uClock's options frame.
+
+Version 1.0.6
+- Initial public release.
