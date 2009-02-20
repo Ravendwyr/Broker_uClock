@@ -1,3 +1,8 @@
+Version 3.0.1
+- You can now choose the colour of the text displayed on your LDB display addon (default is white, text in the tooltip remains yellow).
+- Fixed the offset of "uClock" in the dropdown menu.
+- Fixed a bug where the tooltip would remain shown when you open the dropdown menu.
+
 Version 3.0
 - Re-written to use Ace3 and LibDataBroker-1.1.
 
