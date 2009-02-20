@@ -16,6 +16,7 @@ local uClockBlock = LibStub("LibDataBroker-1.1"):NewDataObject("uClock", {
 				ToggleTimeManager()
 			end
 		elseif button == "RightButton" then
+			GameTooltip:Hide()
 			ToggleDropDownMenu(1, nil, dropDownMenu, "cursor")
 		end
 	end,
