@@ -49,12 +49,10 @@ function uClock:OnEnable()
 		if level == 1 then
 			info.isTitle = 1
 			info.text = "uClock"
-			info.notCheckable = true
 			UIDropDownMenu_AddButton(info, level)
 
-			info.disabled = nil
 			info.isTitle = nil
-			info.notCheckable = nil
+			info.disabled = nil
 			info.keepShownOnClick = 1
 
 			info.text = "24 Hour Mode"
