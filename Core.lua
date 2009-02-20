@@ -1,5 +1,6 @@
 
 local dropDownMenu, db
+local red, green, blue
 
 local uClock = LibStub("AceAddon-3.0"):NewAddon("uClock", 'AceTimer-3.0')
 local uClockBlock = LibStub("LibDataBroker-1.1"):NewDataObject("uClock", {
@@ -30,9 +31,8 @@ local uClockBlock = LibStub("LibDataBroker-1.1"):NewDataObject("uClock", {
 })
 
 
-
 function uClock:OnEnable()
-	self.db = LibStub("AceDB-3.0"):New("uClockDB", { profile = { twentyFour = true, showSeconds = false }}, "Default")
+	self.db = LibStub("AceDB-3.0"):New("uClockDB", { profile = { twentyFour = true, showSeconds = false, r = 1, g = 1, b = 1 }}, "Default")
 	db = self.db.profile
 
 	dropDownMenu = CreateFrame("Frame")
@@ -66,6 +66,16 @@ function uClock:OnEnable()
 			info.checked = function() return db.showSeconds end
 			UIDropDownMenu_AddButton(info, level)
 
+			info.text = "Colour of Text"
+			info.func = nil
+			info.checked = nil
+			info.notClickable = true
+			info.hasColorSwatch = true
+			info.swatchFunc = function() db.r, db.g, db.b = ColorPickerFrame:GetColorRGB() uClock:UpdateText() end
+			info.cancelFunc = function(previous) db.r, db.g, db.b = previous.r, previous.g, previous.b uClock:UpdateText() end
+			info.r, info.g, info.b = db.r, db.g, db.b
+			UIDropDownMenu_AddButton(info, level)
+
 			wipe(info)
 
 			info.disabled = 1
@@ -82,6 +92,7 @@ function uClock:OnEnable()
 
 	self:ScheduleRepeatingTimer("UpdateText", 1)
 end
+
 
 function uClock:UpdateText()
 	uClockBlock.text = self:GetTimeString(date("%H"), date("%M"), true)
@@ -107,7 +118,9 @@ function uClock:GetTimeString(hour, minute, color)
 		time = time..(pm and " PM" or " AM")
 	end
 
-	if color then return "|cffffffff"..time.."|r"
-	else return time end
+	if color then
+		return ("|cff%02x%02x%02x%s|r"):format(db.r*255, db.g*255, db.b*255, time)
+	else
+		return time
+	end
 end
-
