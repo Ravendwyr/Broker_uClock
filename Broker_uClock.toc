@@ -2,7 +2,7 @@
 ## Title: Broker uClock
 ## Notes: Minimalistic time/date plugin for LibDataBroker-1.1.
 ## Author: Ethan Centaurai
-## Version: @project-version@
+## Version: 3.0.1
 ## X-Category: Miscellaneous
 ## X-eMail: ethan.centaurai@live.co.uk
 ## OptionalDeps: Ace3, LibDataBroker-1.1
@@ -18,4 +18,3 @@ Lib\LibDataBroker-1.1\LibDataBroker-1.1.lua
 #@end-no-lib-strip@
 
 Core.lua
-
