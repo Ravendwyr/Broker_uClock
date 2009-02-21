@@ -1,4 +1,4 @@
-Version 3.0.2
+Version 3.0.2a
 - Added an option to show local time, realm time, or both in the display.
 - Restructured the tooltip slightly. Today's date is now shown at the top, with local and server times underneath.
 

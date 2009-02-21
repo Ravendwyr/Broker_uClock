@@ -34,7 +34,7 @@ local uClockBlock = LibStub("LibDataBroker-1.1"):NewDataObject("uClock", {
 
 
 function uClock:OnEnable()
-	self.db = LibStub("AceDB-3.0"):New("uClockDB", { profile = { twentyFour = true, showSeconds = false, r = 1, g = 1, b = 1 }}, "Default")
+	self.db = LibStub("AceDB-3.0"):New("uClockDB", { profile = { showLocal = true, showRealm = false, twentyFour = true, showSeconds = false, r = 1, g = 1, b = 1 }}, "Default")
 	db = self.db.profile
 
 	dropDownMenu = CreateFrame("Frame")
