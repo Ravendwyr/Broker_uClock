@@ -22,8 +22,9 @@ local uClockBlock = LibStub("LibDataBroker-1.1"):NewDataObject("uClock", {
 	end,
 
 	OnTooltipShow = function(tooltip)
-		tooltip:AddDoubleLine("Server Time", realmTime)
 		tooltip:AddDoubleLine("Today's Date", date("%A, %B %d, %Y"))
+		tooltip:AddDoubleLine("Local Time", localTime)
+		tooltip:AddDoubleLine("Server Time", realmTime)
 		tooltip:AddLine(" ")
 		tooltip:AddLine("|cffeda55fClick|r to toggle the Time Manager.", 0.2, 1, 0.2)
 		tooltip:AddLine("|cffeda55fShift-Click|r to toggle the Calendar.", 0.2, 1, 0.2)
