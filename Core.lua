@@ -1,6 +1,5 @@
 
 local dropDownMenu, db
-local red, green, blue
 local localTime, realmTime, displayedTime
 
 local uClock = LibStub("AceAddon-3.0"):NewAddon("uClock", 'AceTimer-3.0')
