@@ -1,3 +1,7 @@
+Version 3.0.2
+- Added an option to show local time, realm time, or both in the display.
+- Restructured the tooltip slightly. Today's date is now shown at the top, with local and server times underneath.
+
 Version 3.0.1
 - You can now choose the colour of the text displayed on your LDB display addon (default is white, text in the tooltip remains yellow).
 - Fixed the offset of "uClock" in the dropdown menu.
