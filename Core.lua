@@ -1,6 +1,7 @@
 
 local dropDownMenu, db
 local red, green, blue
+local localTime, realmTime, displayedTime
 
 local uClock = LibStub("AceAddon-3.0"):NewAddon("uClock", 'AceTimer-3.0')
 local uClockBlock = LibStub("LibDataBroker-1.1"):NewDataObject("uClock", {
@@ -22,7 +23,7 @@ local uClockBlock = LibStub("LibDataBroker-1.1"):NewDataObject("uClock", {
 	end,
 
 	OnTooltipShow = function(tooltip)
-		tooltip:AddDoubleLine("Server Time", uClock:GetTimeString(GetGameTime()))
+		tooltip:AddDoubleLine("Server Time", realmTime)
 		tooltip:AddDoubleLine("Today's Date", date("%A, %B %d, %Y"))
 		tooltip:AddLine(" ")
 		tooltip:AddLine("|cffeda55fClick|r to toggle the Time Manager.", 0.2, 1, 0.2)
@@ -55,31 +56,48 @@ function uClock:OnEnable()
 			info.disabled = nil
 			info.keepShownOnClick = 1
 
+			info.text = "Show Local Time"
+			info.func = function() db.showLocal = not db.showLocal uClock:UpdateTimeStrings() end
+			info.checked = function() return db.showLocal end
+			UIDropDownMenu_AddButton(info, level)
+
+			info.text = "Show Realm Time"
+			info.func = function() db.showRealm = not db.showRealm uClock:UpdateTimeStrings() end
+			info.checked = function() return db.showRealm end
+			UIDropDownMenu_AddButton(info, level)
+
+			wipe(info)
+
+			info.disabled = 1
+			UIDropDownMenu_AddButton(info, level)
+
+			info.disabled = nil
+			info.keepShownOnClick = 1
+
 			info.text = "24 Hour Mode"
-			info.func = function() db.twentyFour = not db.twentyFour uClock:UpdateText() end
+			info.func = function() db.twentyFour = not db.twentyFour uClock:UpdateTimeStrings() end
 			info.checked = function() return db.twentyFour end
 			UIDropDownMenu_AddButton(info, level)
 
 			info.text = "Show Seconds"
-			info.func = function() db.showSeconds = not db.showSeconds uClock:UpdateText() end
+			info.func = function() db.showSeconds = not db.showSeconds uClock:UpdateTimeStrings() end
 			info.checked = function() return db.showSeconds end
 			UIDropDownMenu_AddButton(info, level)
 
-			info.text = "Colour of Text"
 			info.func = nil
 			info.checked = nil
+
+			info.text = "Colour of Text"
 			info.notClickable = true
 			info.hasColorSwatch = true
-			info.swatchFunc = function() db.r, db.g, db.b = ColorPickerFrame:GetColorRGB() uClock:UpdateText() end
-			info.cancelFunc = function(previous) db.r, db.g, db.b = previous.r, previous.g, previous.b uClock:UpdateText() end
+			info.swatchFunc = function() db.r, db.g, db.b = ColorPickerFrame:GetColorRGB() uClock:UpdateTimeStrings() end
+			info.cancelFunc = function(previous) db.r, db.g, db.b = previous.r, previous.g, previous.b uClock:UpdateTimeStrings() end
 			info.r, info.g, info.b = db.r, db.g, db.b
 			UIDropDownMenu_AddButton(info, level)
 
 			wipe(info)
 
 			info.disabled = 1
-			info.text = nil
-			info.func = nil
 			UIDropDownMenu_AddButton(info, level)
 
 			info.disabled = nil
@@ -89,37 +107,44 @@ function uClock:OnEnable()
 		end
 	end
 
-	self:ScheduleRepeatingTimer("UpdateText", 1)
+	self:ScheduleRepeatingTimer("UpdateTimeStrings", 1)
 end
 
 
-function uClock:UpdateText()
-	uClockBlock.text = self:GetTimeString(date("%H"), date("%M"), true)
-end
+function uClock:UpdateTimeStrings()
+	local lHour, lMinute = date("%H"), date("%M")
+	local sHour, sMinute = GetGameTime()
 
-function uClock:GetTimeString(hour, minute, color)
-	local time, pm
+	local lPM, sPM
 
-	if not self.db.profile.twentyFour then
-		pm = floor(hour / 12) == 1
-		hour = mod(hour, 12)
+	if not db.twentyFour then
+		lPM = floor(lHour / 12) == 1
+		lHour = mod(lHour, 12)
 
-		if hour == 0 then hour = 12 end
+		sPM = floor(sHour / 12) == 1
+		sHour = mod(sHour, 12)
+
+		if lHour == 0 then lHour = 12 end
+		if sHour == 0 then sHour = 12 end
 	end
 
-	time = ("%d:%02d"):format(hour, minute)
+	localTime = ("%d:%02d"):format(lHour, lMinute)
+	realmTime = ("%d:%02d"):format(sHour, sMinute)
 
-	if self.db.profile.showSeconds then
-		time = time..date(":%S")
+	if db.showSeconds then
+		localTime = localTime..date(":%S")
+		realmTime = realmTime..date(":%S")
 	end
 
-	if not self.db.profile.twentyFour then
-		time = time..(pm and " PM" or " AM")
+	if not db.twentyFour then
+		localTime = localTime..(lPM and " PM" or " AM")
+		realmTime = realmTime..(sPM and " PM" or " AM")
 	end
 
-	if color then
-		return ("|cff%02x%02x%02x%s|r"):format(db.r*255, db.g*255, db.b*255, time)
-	else
-		return time
-	end
+	if db.showLocal and db.showRealm then displayedTime = localTime.." | "..realmTime
+	elseif db.showLocal then displayedTime = localTime
+	elseif db.showRealm then displayedTime = realmTime
+	else displayedTime = "" end
+
+	uClockBlock.text = ("|cff%02x%02x%02x%s|r"):format(db.r*255, db.g*255, db.b*255, displayedTime)
 end
