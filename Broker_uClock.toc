@@ -1,12 +1,10 @@
-## Interface: 30000
+﻿## Interface: 30100
 ## Title: Broker uClock
-## Notes: Minimalistic time/date plugin for LibDataBroker-1.1.
+## Notes: Minimalistic time/date plugin for Broker.
 ## Author: Ethan Centaurai
-## Version: 3.0.2a
-## X-Category: Miscellaneous
-## X-eMail: ethan.centaurai@live.co.uk
-## OptionalDeps: Ace3, LibDataBroker-1.1
+## Version: 3.0.3
 ## SavedVariables: uClockDB
+## OptionalDeps: Ace3, LibDataBroker-1.1
 
 #@no-lib-strip@
 Lib\LibStub\LibStub.lua

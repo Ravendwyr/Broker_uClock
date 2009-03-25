@@ -1,11 +1,10 @@
-
+﻿
 local dropDownMenu, db
 local localTime, realmTime, displayedTime
 
 local uClock = LibStub("AceAddon-3.0"):NewAddon("uClock", 'AceTimer-3.0')
 local uClockBlock = LibStub("LibDataBroker-1.1"):NewDataObject("uClock", {
-	type = "data source",
-	icon = "Interface\\Icons\\INV_Misc_PocketWatch_02",
+	type = "data source", icon = "Interface\\Icons\\INV_Misc_PocketWatch_02",
 
 	OnClick = function(self, button)
 		if button == "LeftButton" then
