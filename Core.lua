@@ -33,7 +33,7 @@ local uClockBlock = LibStub("LibDataBroker-1.1"):NewDataObject("uClock", {
 
 
 function uClock:OnEnable()
-	self.db = LibStub("AceDB-3.0"):New("uClockDB", { profile = { showLocal = true, showRealm = false, twentyFour = true, showSeconds = false, r = 1, g = 1, b = 1 }}, "Default")
+	self.db = LibStub("AceDB-3.0"):New("uClockDB", { profile = { showLocal = true, showRealm = false, twentyFour = true, showSeconds = false }}, "Default")
 	db = self.db.profile
 
 	dropDownMenu = CreateFrame("Frame")
@@ -81,17 +81,6 @@ function uClock:OnEnable()
 			info.text = "Show Seconds"
 			info.func = function() db.showSeconds = not db.showSeconds uClock:UpdateTimeStrings() end
 			info.checked = function() return db.showSeconds end
-			UIDropDownMenu_AddButton(info, level)
-
-			info.func = nil
-			info.checked = nil
-
-			info.text = "Colour of Text"
-			info.notClickable = true
-			info.hasColorSwatch = true
-			info.swatchFunc = function() db.r, db.g, db.b = ColorPickerFrame:GetColorRGB() uClock:UpdateTimeStrings() end
-			info.cancelFunc = function(previous) db.r, db.g, db.b = previous.r, previous.g, previous.b uClock:UpdateTimeStrings() end
-			info.r, info.g, info.b = db.r, db.g, db.b
 			UIDropDownMenu_AddButton(info, level)
 
 			wipe(info)
@@ -145,5 +134,5 @@ function uClock:UpdateTimeStrings()
 	elseif db.showRealm then displayedTime = realmTime
 	else displayedTime = "" end
 
-	uClockBlock.text = ("|cff%02x%02x%02x%s|r"):format(db.r*255, db.g*255, db.b*255, displayedTime)
+	uClockBlock.text = displayedTime
 end
