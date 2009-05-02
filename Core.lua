@@ -1,6 +1,6 @@
 
 local dropDownMenu, db
-local localTime, realmTime, displayedTime
+local localTime, realmTime, utcTime, displayedTime
 
 local uClock = LibStub("AceAddon-3.0"):NewAddon("uClock", 'AceTimer-3.0')
 local uClockBlock = LibStub("LibDataBroker-1.1"):NewDataObject("uClock", {
@@ -24,6 +24,7 @@ local uClockBlock = LibStub("LibDataBroker-1.1"):NewDataObject("uClock", {
 		tooltip:AddDoubleLine("Today's Date", date("%A, %B %d, %Y"))
 		tooltip:AddDoubleLine("Local Time", localTime)
 		tooltip:AddDoubleLine("Server Time", realmTime)
+		tooltip:AddDoubleLine("UTC Time", utcTime)
 		tooltip:AddLine(" ")
 		tooltip:AddLine("|cffeda55fClick|r to toggle the Time Manager.", 0.2, 1, 0.2)
 		tooltip:AddLine("|cffeda55fShift-Click|r to toggle the Calendar.", 0.2, 1, 0.2)
@@ -33,7 +34,7 @@ local uClockBlock = LibStub("LibDataBroker-1.1"):NewDataObject("uClock", {
 
 
 function uClock:OnEnable()
-	self.db = LibStub("AceDB-3.0"):New("uClockDB", { profile = { showLocal = true, showRealm = false, twentyFour = true, showSeconds = false }}, "Default")
+	self.db = LibStub("AceDB-3.0"):New("uClockDB", { profile = { showLocal = true, showRealm = false, showUTC = false, twentyFour = true, showSeconds = false }}, "Default")
 	db = self.db.profile
 
 	dropDownMenu = CreateFrame("Frame")
@@ -63,6 +64,11 @@ function uClock:OnEnable()
 			info.text = "Show Realm Time"
 			info.func = function() db.showRealm = not db.showRealm uClock:UpdateTimeStrings() end
 			info.checked = function() return db.showRealm end
+			UIDropDownMenu_AddButton(info, level)
+
+			info.text = "Show UTC Time"
+			info.func = function() db.showUTC = not db.showUTC uClock:UpdateTimeStrings() end
+			info.checked = function() return db.showUTC end
 			UIDropDownMenu_AddButton(info, level)
 
 			wipe(info)
@@ -102,8 +108,9 @@ end
 function uClock:UpdateTimeStrings()
 	local lHour, lMinute = date("%H"), date("%M")
 	local sHour, sMinute = GetGameTime()
+	local uHour, uMinute = date("!%H"), date("!%M")
 
-	local lPM, sPM
+	local lPM, sPM, uPM
 
 	if not db.twentyFour then
 		lPM = floor(lHour / 12) == 1
@@ -112,27 +119,37 @@ function uClock:UpdateTimeStrings()
 		sPM = floor(sHour / 12) == 1
 		sHour = mod(sHour, 12)
 
+		uPM = floor(uHour / 12) == 1
+		uHour = mod(uHour, 12)
+
 		if lHour == 0 then lHour = 12 end
 		if sHour == 0 then sHour = 12 end
+		if uHour == 0 then uHour = 12 end
 	end
 
 	localTime = ("%d:%02d"):format(lHour, lMinute)
 	realmTime = ("%d:%02d"):format(sHour, sMinute)
+	utcTime   = ("%d:%02d"):format(uHour, uMinute)
 
 	if db.showSeconds then
 		localTime = localTime..date(":%S")
 		realmTime = realmTime..date(":%S")
+		utcTime   = utcTime .. date(":%S")
 	end
 
 	if not db.twentyFour then
 		localTime = localTime..(lPM and " PM" or " AM")
 		realmTime = realmTime..(sPM and " PM" or " AM")
+		utcTime   = utcTime .. (uPM and " PM" or " AM")
 	end
 
-	if db.showLocal and db.showRealm then displayedTime = localTime.." | "..realmTime
-	elseif db.showLocal then displayedTime = localTime
-	elseif db.showRealm then displayedTime = realmTime
-	else displayedTime = "" end
+	displayedTime = ""
+
+	if db.showLocal then displayedTime = displayedTime..localTime.." | " end
+	if db.showRealm then displayedTime = displayedTime..realmTime.." | " end
+	if db.showUTC then displayedTime = displayedTime..utcTime end
+
+	displayedTime = displayedTime:gsub(" | $", "") -- remove trailing seperators
 
 	uClockBlock.text = displayedTime
 end
