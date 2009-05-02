@@ -1,4 +1,4 @@
-﻿## Interface: 30100
+## Interface: 30100
 ## Title: Broker uClock
 ## Notes: Minimalistic time/date plugin for Broker.
 ## Author: Ethan Centaurai

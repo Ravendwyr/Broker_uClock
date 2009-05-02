@@ -1,4 +1,4 @@
-﻿
+
 local dropDownMenu, db
 local localTime, realmTime, displayedTime
 
