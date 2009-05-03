@@ -1,17 +1,20 @@
-Version 3.0.3
-- Updated for WoW 3.1.0
+Version 3.1
+- Added support for the UTC time format.
+- Removed the text colour options, as most Broker Displays already have text colouring options.
 
-Version 3.0.2a
-- Added an option to show local time, realm time, or both in the display.
+Version 3.0.3
+- Updated for WoW 3.1.0.
+
+Version 3.0.2
+- You can now choose to show local time, realm time, or both in the display.
 - Restructured the tooltip slightly. Today's date is now shown at the top, with local and server times underneath.
 
 Version 3.0.1
-- You can now choose the colour of the text displayed on your LDB display addon (default is white, text in the tooltip remains yellow).
 - Fixed the offset of "uClock" in the dropdown menu.
 - Fixed a bug where the tooltip would remain shown when you open the dropdown menu.
 
 Version 3.0
-- Re-written to use Ace3 and LibDataBroker-1.1.
+- Re-written to use Ace-3.0 and LibDataBroker-1.1.
 
 Version 2.0.12
 - Removed unused libraries to shrink download file size.
@@ -21,7 +24,7 @@ Version 2.0.11
 - Added hints to the tooltip.
 - Shift-clicking the plugin should now toggle GroupCalender if it is installed, or Blizzard's Calendar if not.
 
-Version 2.0.9a
+Version 2.0.9
 - Bugfixes. Coding in the middle of the night is bad, m'kay?
 
 Version 2.0.8

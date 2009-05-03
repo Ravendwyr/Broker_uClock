@@ -1,8 +1,8 @@
 ## Interface: 30100
 ## Title: Broker uClock
-## Notes: Minimalistic time/date plugin for Broker
+## Notes: Minimalistic time/date plugin for Broker.
 ## Author: Ethan Centaurai
-## Version: 3.0.3
+## Version: 3.1
 ## SavedVariables: uClockDB
 ## OptionalDeps: Ace3, LibDataBroker-1.1
 
