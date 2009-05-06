@@ -1,3 +1,6 @@
+Version 3.1.1
+- Added support for multiple localizations. Translators needed!
+
 Version 3.1
 - Added support for the UTC time format.
 - Removed the text colour options, as most Broker Displays already have text colouring options.
