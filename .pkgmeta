@@ -5,6 +5,7 @@ externals:
    Lib/AceAddon-3.0: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceAddon-3.0
    Lib/AceDB-3.0: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceDB-3.0
    Lib/AceTimer-3.0: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceTimer-3.0
+   Lib/AceLocale-3.0: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceLocale-3.0
    Lib/LibDataBroker-1.1: git://github.com/tekkub/libdatabroker-1-1.git
 
 manual-changelog: CHANGELOG.txt

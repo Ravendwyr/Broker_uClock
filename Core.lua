@@ -1,4 +1,6 @@
 
+local L = LibStub("AceLocale-3.0"):GetLocale("Broker_uClock")
+
 local dropDownMenu, db
 local localTime, realmTime, utcTime, displayedTime
 
@@ -21,14 +23,14 @@ local uClockBlock = LibStub("LibDataBroker-1.1"):NewDataObject("uClock", {
 	end,
 
 	OnTooltipShow = function(tooltip)
-		tooltip:AddDoubleLine("Today's Date", date("%A, %B %d, %Y"))
-		tooltip:AddDoubleLine("Local Time", localTime)
-		tooltip:AddDoubleLine("Server Time", realmTime)
-		tooltip:AddDoubleLine("UTC Time", utcTime)
+		tooltip:AddDoubleLine(L["Today's Date"], date("%A, %B %d, %Y"))
+		tooltip:AddDoubleLine(L["Local Time"], localTime)
+		tooltip:AddDoubleLine(L["Server Time"], realmTime)
+		tooltip:AddDoubleLine(L["UTC Time"], utcTime)
 		tooltip:AddLine(" ")
-		tooltip:AddLine("|cffeda55fClick|r to toggle the Time Manager.", 0.2, 1, 0.2)
-		tooltip:AddLine("|cffeda55fShift-Click|r to toggle the Calendar.", 0.2, 1, 0.2)
-		tooltip:AddLine("|cffeda55fRight-Click|r for options.", 0.2, 1, 0.2)
+		tooltip:AddLine(L["|cffeda55fClick|r to toggle the Time Manager."], 0.2, 1, 0.2)
+		tooltip:AddLine(L["|cffeda55fShift-Click|r to toggle the Calendar."], 0.2, 1, 0.2)
+		tooltip:AddLine(L["|cffeda55fRight-Click|r for options."], 0.2, 1, 0.2)
 	end,
 })
 
@@ -56,17 +58,17 @@ function uClock:OnEnable()
 			info.disabled = nil
 			info.keepShownOnClick = 1
 
-			info.text = "Show Local Time"
+			info.text = L["Show Local Time"]
 			info.func = function() db.showLocal = not db.showLocal uClock:UpdateTimeStrings() end
 			info.checked = function() return db.showLocal end
 			UIDropDownMenu_AddButton(info, level)
 
-			info.text = "Show Realm Time"
+			info.text = L["Show Realm Time"]
 			info.func = function() db.showRealm = not db.showRealm uClock:UpdateTimeStrings() end
 			info.checked = function() return db.showRealm end
 			UIDropDownMenu_AddButton(info, level)
 
-			info.text = "Show UTC Time"
+			info.text = L["Show UTC Time"]
 			info.func = function() db.showUTC = not db.showUTC uClock:UpdateTimeStrings() end
 			info.checked = function() return db.showUTC end
 			UIDropDownMenu_AddButton(info, level)
@@ -79,12 +81,12 @@ function uClock:OnEnable()
 			info.disabled = nil
 			info.keepShownOnClick = 1
 
-			info.text = "24 Hour Mode"
+			info.text = L["24 Hour Mode"]
 			info.func = function() db.twentyFour = not db.twentyFour uClock:UpdateTimeStrings() end
 			info.checked = function() return db.twentyFour end
 			UIDropDownMenu_AddButton(info, level)
 
-			info.text = "Show Seconds"
+			info.text = L["Show Seconds"]
 			info.func = function() db.showSeconds = not db.showSeconds uClock:UpdateTimeStrings() end
 			info.checked = function() return db.showSeconds end
 			UIDropDownMenu_AddButton(info, level)
