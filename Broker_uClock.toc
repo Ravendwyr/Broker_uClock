@@ -19,5 +19,6 @@ Lib\LibDataBroker-1.1\LibDataBroker-1.1.lua
 enUS.lua
 koKR.lua
 zhCN.lua
+zhTW.lua
 
 Core.lua
