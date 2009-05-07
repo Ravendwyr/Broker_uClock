@@ -3,6 +3,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale("uClock")
 
 local dropDownMenu, db
 local localTime, realmTime, utcTime, displayedTime
+local locale = GetLocale()
 
 local uClock = LibStub("AceAddon-3.0"):NewAddon("uClock", 'AceTimer-3.0')
 local uClockBlock = LibStub("LibDataBroker-1.1"):NewDataObject("uClock", {
@@ -107,8 +108,8 @@ function uClock:OnEnable()
 end
 
 
-function uClock:CreateDateString(message)
-	if GetLocale() ~= "koKR" then return message end
+function uClock:CreateDateString(message) -- date() doesn't return localised days/months, so add them here instead
+	if locale() == "enUS" or locale() == "enGB" then return message end
 
 	local days = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" }
 
