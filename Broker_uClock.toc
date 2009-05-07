@@ -17,5 +17,6 @@ Lib\LibDataBroker-1.1\LibDataBroker-1.1.lua
 #@end-no-lib-strip@
 
 enUS.lua
+koKR.lua
 
 Core.lua
