@@ -1,5 +1,5 @@
 
-local L = LibStub("AceLocale-3.0"):GetLocale("Broker_uClock")
+local L = LibStub("AceLocale-3.0"):GetLocale("uClock")
 
 local dropDownMenu, db
 local localTime, realmTime, utcTime, displayedTime
@@ -23,7 +23,7 @@ local uClockBlock = LibStub("LibDataBroker-1.1"):NewDataObject("uClock", {
 	end,
 
 	OnTooltipShow = function(tooltip)
-		tooltip:AddDoubleLine(L["Today's Date"], date("%A, %B %d, %Y"))
+		tooltip:AddDoubleLine(L["Today's Date"], uClock:CreateDateString(date(L["%A, %B %d, %Y"])))
 		tooltip:AddDoubleLine(L["Local Time"], localTime)
 		tooltip:AddDoubleLine(L["Server Time"], realmTime)
 		tooltip:AddDoubleLine(L["UTC Time"], utcTime)
@@ -107,6 +107,20 @@ function uClock:OnEnable()
 end
 
 
+function uClock:CreateDateString(message)
+	if GetLocale() ~= "koKR" then return message end
+
+	local days = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" }
+
+	for i = 1, 7, 1 do
+		if message:find(days[i]) then
+			return string.replace( message, days[i], L[days[i]] )
+		end
+	end
+
+	return message
+end
+
 function uClock:UpdateTimeStrings()
 	local lHour, lMinute = date("%H"), date("%M")
 	local sHour, sMinute = GetGameTime()
@@ -140,9 +154,9 @@ function uClock:UpdateTimeStrings()
 	end
 
 	if not db.twentyFour then
-		localTime = localTime..(lPM and " PM" or " AM")
-		realmTime = realmTime..(sPM and " PM" or " AM")
-		utcTime   = utcTime .. (uPM and " PM" or " AM")
+		localTime = localTime..(lPM and L[" PM"] or L[" AM"])
+		realmTime = realmTime..(sPM and L[" PM"] or L[" AM"])
+		utcTime   = utcTime .. (uPM and L[" PM"] or L[" AM"])
 	end
 
 	displayedTime = ""
@@ -151,7 +165,7 @@ function uClock:UpdateTimeStrings()
 	if db.showRealm then displayedTime = displayedTime..realmTime.." | " end
 	if db.showUTC then displayedTime = displayedTime..utcTime end
 
-	displayedTime = displayedTime:gsub(" | $", "") -- remove trailing seperators
+	displayedTime = displayedTime:gsub(" | $", "") -- remove trailing seperator
 
 	uClockBlock.text = displayedTime
 end

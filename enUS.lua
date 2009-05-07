@@ -1,5 +1,20 @@
 
-local L = LibStub("AceLocale-3.0"):NewLocale("Broker_uClock", "enUS", true)
+local L = LibStub("AceLocale-3.0"):NewLocale("uClock", "enUS", true)
+
+
+-- time/date strings
+L[" PM"] = true
+L[" AM"] = true
+
+L["%A, %B %d, %Y"] = true
+
+L["Monday"] = true
+L["Tuesday"] = true
+L["Wednesday"] = true
+L["Thursday"] = true
+L["Friday"] = true
+L["Saturday"] = true
+L["Sunday"] = true
 
 -- tooltip strings
 L["Today's Date"] = true
