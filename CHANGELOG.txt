@@ -1,3 +1,6 @@
+Version 3.1.2
+- Added Korean (koKR), Simplified Chinese (zhCN) and Traditional Chinese (zhTW) translations. Thanks, Damjau and Sparanoid!
+
 Version 3.1.1
 - Added support for multiple localizations. Translators needed!
 

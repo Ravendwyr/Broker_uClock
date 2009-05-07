@@ -2,7 +2,7 @@
 ## Title: Broker uClock
 ## Notes: Minimalistic time/date plugin for Broker.
 ## Author: Ethan Centaurai
-## Version: 3.1.1
+## Version: 3.1.2
 ## SavedVariables: uClockDB
 ## OptionalDeps: Ace3, LibDataBroker-1.1
 
