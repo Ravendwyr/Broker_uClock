@@ -2,22 +2,22 @@
 local L = LibStub("AceLocale-3.0"):NewLocale("uClock", "zhTW")
 if not L then return end
 
---[[ time/date strings, please translate
-L[" PM"] = true
-L[" AM"] = true
+-- time/date strings
+L[" PM"] = " 下午"
+L[" AM"] = " 上午"
 
-L["%A, %B %d, %Y"] = true
+L["%A, %B %d, %Y"] = "%Y 年 %B 月 %d 日,%A"
 
-L["Monday"] = true
-L["Tuesday"] = true
-L["Wednesday"] = true
-L["Thursday"] = true
-L["Friday"] = true
-L["Saturday"] = true
-L["Sunday"] = true
-]]
+L["Monday"] = "星期一"
+L["Tuesday"] = "星期二"
+L["Wednesday"] = "星期三"
+L["Thursday"] = "星期四"
+L["Friday"] = "星期五"
+L["Saturday"] = "星期六"
+L["Sunday"] = "星期日"
+
 -- tooltip strings
-L["Today's Date"] = "當天時間"
+L["Today's Date"] = "當前時間"
 L["Local Time"] = "本地時間"
 L["Server Time"] = "伺服器時間"
 L["UTC Time"] = "UTC 時間(世界標準時間)"
