@@ -8,14 +8,6 @@ L[" AM"] = true
 
 L["%A, %B %d, %Y"] = true
 
-L["Monday"] = true
-L["Tuesday"] = true
-L["Wednesday"] = true
-L["Thursday"] = true
-L["Friday"] = true
-L["Saturday"] = true
-L["Sunday"] = true
-
 -- tooltip strings
 L["Today's Date"] = true
 L["Local Time"] = true

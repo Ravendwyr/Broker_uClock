@@ -108,14 +108,23 @@ function uClock:OnEnable()
 end
 
 
-function uClock:CreateDateString(message) -- date() doesn't return localised days/months, so add them here instead
+function uClock:CreateDateString(message) -- workaround for date() not returning localised days/months
 	if locale() == "enUS" or locale() == "enGB" then return message end
 
 	local days = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" }
+	local months = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }
 
 	for i = 1, 7, 1 do
 		if message:find(days[i]) then
-			return string.replace( message, days[i], L[days[i]] )
+			message = message:gsub( days[i], _G["WEEKDAY_"..days[i]:upper()] )
+			break
+		end
+	end
+
+	for i = 1, 12, 1 do
+		if message:find(months[i]) then
+			message = message:gsub( months[i], _G["MONTH_"..months[i]:upper()] )
+			break
 		end
 	end
 

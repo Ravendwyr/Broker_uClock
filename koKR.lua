@@ -8,14 +8,6 @@ L[" AM"] = " 오전"
 
 L["%A, %B %d, %Y"] = "%Y년 %M월 %d일 %A"
 
-L["Monday"] = "월요일"
-L["Tuesday"] = "화요일"
-L["Wednesday"] = "수요일"
-L["Thursday"] = "목요일"
-L["Friday"] = "금요일"
-L["Saturday"] = "토요일"
-L["Sunday"] = "일요일"
-
 -- tooltip strings
 L["Today's Date"] = "오늘의 날짜"
 L["Local Time"] = "지역 시간"

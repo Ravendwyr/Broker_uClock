@@ -8,14 +8,6 @@ L[" AM"] = " 上午"
 
 L["%A, %B %d, %Y"] = "%Y 年 %B 月 %d 日,%A"
 
-L["Monday"] = "星期一"
-L["Tuesday"] = "星期二"
-L["Wednesday"] = "星期三"
-L["Thursday"] = "星期四"
-L["Friday"] = "星期五"
-L["Saturday"] = "星期六"
-L["Sunday"] = "星期日"
-
 -- tooltip strings
 L["Today's Date"] = "当前日期"
 L["Local Time"] = "本地时间"
