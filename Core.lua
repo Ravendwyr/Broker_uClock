@@ -109,7 +109,7 @@ end
 
 
 function uClock:CreateDateString(message) -- workaround for date() not returning localised days/months
-	if locale() == "enUS" or locale() == "enGB" then return message end
+	if locale == "enUS" or locale == "enGB" then return message end
 
 	local days = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" }
 	local months = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }
