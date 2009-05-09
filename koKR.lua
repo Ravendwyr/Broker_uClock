@@ -6,7 +6,7 @@ if not L then return end
 L[" PM"] = " 오후"
 L[" AM"] = " 오전"
 
-L["%A, %B %d, %Y"] = "%Y년 %M월 %d일 %A"
+L["%A, %B %d, %Y"] = "%Y년 %m월 %d일 %A"
 
 -- tooltip strings
 L["Today's Date"] = "오늘의 날짜"
