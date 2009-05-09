@@ -6,7 +6,7 @@ if not L then return end
 L[" PM"] = " 下午"
 L[" AM"] = " 上午"
 
-L["%A, %B %d, %Y"] = "%Y 年 %B 月 %d 日,%A"
+L["%A, %B %d, %Y"] = "%Y年 %B %d日,%A"
 
 -- tooltip strings
 L["Today's Date"] = "当前日期"
