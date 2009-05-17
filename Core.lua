@@ -36,7 +36,11 @@ local uClockBlock = LibStub("LibDataBroker-1.1"):NewDataObject("uClock", {
 
 
 function uClock:OnEnable()
-	self.db = LibStub("AceDB-3.0"):New("uClockDB", { profile = { showLocal = true, showRealm = false, showUTC = false, twentyFour = true, showSeconds = false }}, "Default")
+	self.db = LibStub("AceDB-3.0"):New("uClockDB", { profile = {
+		showLocal = true, showRealm = false, showUTC = false,
+		twentyFour = true, showSeconds = false, hourlyChime = true,
+	}}, "Default")
+
 	db = self.db.profile
 
 	LibStub("AceConfig-3.0"):RegisterOptionsTable("uClock", {
@@ -68,6 +72,13 @@ function uClock:OnEnable()
 			showSeconds = {
 				name = L["Show Seconds"],
 				type = "toggle", order = 7, arg = "showSeconds",
+			},
+
+			header3 = { name = "Advanced Options", type = "header", order = 8 },
+
+			hourlyChime = {
+				name = "Hourly Chime",
+				type = "toggle", order = 9, arg = "hourlyChime",
 			},
 		},
 	})
@@ -109,6 +120,11 @@ function uClock:UpdateTimeStrings()
 	local lHour, lMinute = date("%H"), date("%M")
 	local sHour, sMinute = GetGameTime()
 	local uHour, uMinute = date("!%H"), date("!%M")
+	local seconds = date(":%S")
+
+	if db.hourlyChime and lMinute == "00" and seconds == "00" then -- use local time as the difference between it and the realm time is minimal
+		PlaySoundFile("Sound\\Interface\\AlarmClockWarning3.wav")
+	end
 
 	local lPM, sPM, uPM
 
@@ -132,9 +148,9 @@ function uClock:UpdateTimeStrings()
 	utcTime   = ("%d:%02d"):format(uHour, uMinute)
 
 	if db.showSeconds then
-		localTime = localTime..date(":%S")
-		realmTime = realmTime..date(":%S")
-		utcTime   = utcTime .. date(":%S")
+		localTime = localTime..seconds
+		realmTime = realmTime..seconds
+		utcTime   = utcTime .. seconds
 	end
 
 	if not db.twentyFour then
