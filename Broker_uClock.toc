@@ -13,8 +13,12 @@ Lib\LibStub\LibStub.lua
 Lib\CallbackHandler-1.0\CallbackHandler-1.0.lua
 Lib\AceAddon-3.0\AceAddon-3.0.lua
 Lib\AceDB-3.0\AceDB-3.0.lua
+Lib\AceGUI-3.0\AceGUI-3.0.xml
+Lib\AceConfig-3.0\AceConfig-3.0.xml
 Lib\AceLocale-3.0\AceLocale-3.0.lua
 Lib\AceTimer-3.0\AceTimer-3.0.lua
+Lib\LibSharedMedia-3.0\LibSharedMedia-3.0.lua
+Lib\AceGUI-3.0-SharedMediaWidgets\widget.xml
 Lib\LibDataBroker-1.1\LibDataBroker-1.1.lua
 #@end-no-lib-strip@
 
