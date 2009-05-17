@@ -1,5 +1,11 @@
 
 local L = LibStub("AceLocale-3.0"):GetLocale("uClock")
+local LSM = LibStub("LibSharedMedia-3.0")
+
+LSM:Register("sound", "Blizzard: Alarm Clock 1", "Sound\\Interface\\AlarmClockWarning1.wav")
+LSM:Register("sound", "Blizzard: Alarm Clock 2", "Sound\\Interface\\AlarmClockWarning2.wav")
+LSM:Register("sound", "Blizzard: Alarm Clock 3", "Sound\\Interface\\AlarmClockWarning3.wav")
+
 
 local db
 local localTime, realmTime, utcTime, displayedTime
@@ -38,7 +44,8 @@ local uClockBlock = LibStub("LibDataBroker-1.1"):NewDataObject("uClock", {
 function uClock:OnEnable()
 	self.db = LibStub("AceDB-3.0"):New("uClockDB", { profile = {
 		showLocal = true, showRealm = false, showUTC = false,
-		twentyFour = true, showSeconds = false, hourlyChime = true,
+		twentyFour = true, showSeconds = false,
+		hourlyChime = true, hourlyChimeFile = "Blizzard: Alarm Clock 3",
 	}}, "Default")
 
 	db = self.db.profile
@@ -79,6 +86,12 @@ function uClock:OnEnable()
 			hourlyChime = {
 				name = "Hourly Chime",
 				type = "toggle", order = 9, arg = "hourlyChime",
+			},
+			hourlyChimeFile = {
+				name = "Chime Sound",
+				type = "select", order = 10, arg = "hourlyChimeFile",
+				dialogControl = "LSM30_Sound", values = AceGUIWidgetLSMlists.sound,
+				disabled = function() return not db.hourlyChime end,
 			},
 		},
 	})
@@ -123,7 +136,7 @@ function uClock:UpdateTimeStrings()
 	local seconds = date(":%S")
 
 	if db.hourlyChime and lMinute == "00" and seconds == "00" then -- use local time as the difference between it and the realm time is minimal
-		PlaySoundFile("Sound\\Interface\\AlarmClockWarning3.wav")
+		PlaySoundFile(LSM:Fetch("sound", db.hourlyChimeFile))
 	end
 
 	local lPM, sPM, uPM
