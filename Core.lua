@@ -1,7 +1,7 @@
 
 local L = LibStub("AceLocale-3.0"):GetLocale("uClock")
 
-local dropDownMenu, db
+local db
 local localTime, realmTime, utcTime, displayedTime
 local locale = GetLocale()
 
@@ -18,8 +18,7 @@ local uClockBlock = LibStub("LibDataBroker-1.1"):NewDataObject("uClock", {
 				ToggleTimeManager()
 			end
 		elseif button == "RightButton" then
-			GameTooltip:Hide()
-			ToggleDropDownMenu(1, nil, dropDownMenu, "cursor")
+			InterfaceOptionsFrame_OpenToCategory("Broker uClock")
 		end
 	end,
 
@@ -40,69 +39,44 @@ function uClock:OnEnable()
 	self.db = LibStub("AceDB-3.0"):New("uClockDB", { profile = { showLocal = true, showRealm = false, showUTC = false, twentyFour = true, showSeconds = false }}, "Default")
 	db = self.db.profile
 
-	dropDownMenu = CreateFrame("Frame")
-	dropDownMenu.displayMode = "MENU"
-	dropDownMenu.info = {}
-	dropDownMenu.levelAdjust = 0
-	dropDownMenu.initialize = function(self, level, value)
-		if not level then return end
+	LibStub("AceConfig-3.0"):RegisterOptionsTable("uClock", {
+		name = "Broker uClock", type = "group",
+		get = function(key) return db[key.arg] end,
+		set = function(key, value) db[key.arg] = value uClock:UpdateTimeStrings() end,
+		args = {
+			header1 = { name = "Display Options", type = "header", order = 1 },
 
-		local info = self.info
-		wipe(info)
+			showLocal = {
+				name = L["Show Local Time"],
+				type = "toggle", order = 2, arg = "showLocal",
+			},
+			showRealm = {
+				name = L["Show Realm Time"],
+				type = "toggle", order = 3, arg = "showRealm",
+			},
+			showUTC = {
+				name = L["Show UTC Time"],
+				type = "toggle", order = 4, arg = "showUTC",
+			},
 
-		if level == 1 then
-			info.isTitle = 1
-			info.text = "uClock"
-			UIDropDownMenu_AddButton(info, level)
+			header2 = { name = "Format Options", type = "header", order = 5 },
 
-			info.isTitle = nil
-			info.disabled = nil
-			info.keepShownOnClick = 1
+			twentyFour = {
+				name = L["24 Hour Mode"],
+				type = "toggle", order = 6, arg = "twentyFour",
+			},
+			showSeconds = {
+				name = L["Show Seconds"],
+				type = "toggle", order = 7, arg = "showSeconds",
+			},
+		},
+	})
 
-			info.text = L["Show Local Time"]
-			info.func = function() db.showLocal = not db.showLocal uClock:UpdateTimeStrings() end
-			info.checked = function() return db.showLocal end
-			UIDropDownMenu_AddButton(info, level)
+	LibStub("AceConfigDialog-3.0"):AddToBlizOptions("uClock", "Broker uClock")
 
-			info.text = L["Show Realm Time"]
-			info.func = function() db.showRealm = not db.showRealm uClock:UpdateTimeStrings() end
-			info.checked = function() return db.showRealm end
-			UIDropDownMenu_AddButton(info, level)
-
-			info.text = L["Show UTC Time"]
-			info.func = function() db.showUTC = not db.showUTC uClock:UpdateTimeStrings() end
-			info.checked = function() return db.showUTC end
-			UIDropDownMenu_AddButton(info, level)
-
-			wipe(info)
-
-			info.disabled = 1
-			UIDropDownMenu_AddButton(info, level)
-
-			info.disabled = nil
-			info.keepShownOnClick = 1
-
-			info.text = L["24 Hour Mode"]
-			info.func = function() db.twentyFour = not db.twentyFour uClock:UpdateTimeStrings() end
-			info.checked = function() return db.twentyFour end
-			UIDropDownMenu_AddButton(info, level)
-
-			info.text = L["Show Seconds"]
-			info.func = function() db.showSeconds = not db.showSeconds uClock:UpdateTimeStrings() end
-			info.checked = function() return db.showSeconds end
-			UIDropDownMenu_AddButton(info, level)
-
-			wipe(info)
-
-			info.disabled = 1
-			UIDropDownMenu_AddButton(info, level)
-
-			info.disabled = nil
-			info.text = CLOSE
-			info.func = function() if UIDROPDOWNMENU_OPEN_MENU == dropDownMenu then CloseDropDownMenus() end end
-			UIDropDownMenu_AddButton(info, level)
-		end
-	end
+	_G.SlashCmdList["UCLOCK"] = function() InterfaceOptionsFrame_OpenToCategory("Broker uClock") end
+	_G["SLASH_UCLOCK1"] = "/uclock"
+	_G["SLASH_UCLOCK2"] = "/uc"
 
 	self:ScheduleRepeatingTimer("UpdateTimeStrings", 1)
 end
