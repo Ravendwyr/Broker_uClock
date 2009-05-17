@@ -142,7 +142,7 @@ function uClock:UpdateTimeStrings()
 	local lHour, lMinute = date("%H"), date("%M")
 	local sHour, sMinute = GetGameTime()
 	local uHour, uMinute = date("!%H"), date("!%M")
-	local seconds = date(":%S")
+	local seconds = date("%S")
 
 	if db.hourlyChime and lMinute == "00" and seconds == "00" then -- use local time as the difference between it and the realm time is minimal
 		PlaySoundFile(LSM:Fetch("sound", db.hourlyChimeFile))
@@ -165,14 +165,14 @@ function uClock:UpdateTimeStrings()
 		if uHour == 0 then uHour = 12 end
 	end
 
-	localTime = ("%d:%02d"):format(lHour, lMinute)
-	realmTime = ("%d:%02d"):format(sHour, sMinute)
-	utcTime   = ("%d:%02d"):format(uHour, uMinute)
-
 	if db.showSeconds then
-		localTime = localTime..seconds
-		realmTime = realmTime..seconds
-		utcTime   = utcTime .. seconds
+		localTime = ("%d:%02d:%02d"):format(lHour, lMinute, seconds)
+		realmTime = ("%d:%02d:%02d"):format(sHour, sMinute, seconds)
+		utcTime   = ("%d:%02d:%02d"):format(uHour, uMinute, seconds)
+	else
+		localTime = ("%d:%02d"):format(lHour, lMinute)
+		realmTime = ("%d:%02d"):format(sHour, sMinute)
+		utcTime   = ("%d:%02d"):format(uHour, uMinute)
 	end
 
 	if not db.twentyFour then
