@@ -93,6 +93,15 @@ function uClock:OnEnable()
 				dialogControl = "LSM30_Sound", values = AceGUIWidgetLSMlists.sound,
 				disabled = function() return not db.hourlyChime end,
 			},
+			showClock = {
+				name = _G.SHOW_CLOCK, desc = _G.OPTION_TOOLTIP_SHOW_CLOCK,
+				type = "toggle", order = 11,
+				get = function(_) return GetCVar("showClock") == "1" end,
+				set = function(_, value)
+					SetCVar("showClock", value and "1" or "0")
+					InterfaceOptionsDisplayPanelShowClock_SetFunc(value and "1" or "0")
+				end,
+			},
 		},
 	})
 
