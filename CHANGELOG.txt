@@ -1,3 +1,8 @@
+Version 3.2
+- Added an option to chime at the top of every hour (i.e. 1:00pm etc). The chime sound is configurable.
+- Added an option to show or hide Blizzard's minimap clock.
+- Configuration has been moved to Blizzard's Interface Options frame.
+
 Version 3.1.4
 - The current month should no longer display as "26" for Korean clients.
 
