@@ -2,9 +2,16 @@
 local L = LibStub("AceLocale-3.0"):GetLocale("uClock")
 local LSM = LibStub("LibSharedMedia-3.0")
 
-LSM:Register("sound", "Blizzard: Alarm Clock 1", "Sound\\Interface\\AlarmClockWarning1.wav")
-LSM:Register("sound", "Blizzard: Alarm Clock 2", "Sound\\Interface\\AlarmClockWarning2.wav")
-LSM:Register("sound", "Blizzard: Alarm Clock 3", "Sound\\Interface\\AlarmClockWarning3.wav")
+LSM:Register("sound", "Blizzard: Alarm Clock 1",    "Sound\\Interface\\AlarmClockWarning1.wav")
+LSM:Register("sound", "Blizzard: Alarm Clock 2",    "Sound\\Interface\\AlarmClockWarning2.wav")
+LSM:Register("sound", "Blizzard: Alarm Clock 3",    "Sound\\Interface\\AlarmClockWarning3.wav")
+LSM:Register("sound", "Blizzard: Bell - Alliance",  "Sound\\Doodad\\BellTollAlliance.wav")
+LSM:Register("sound", "Blizzard: Bell - Horde",     "Sound\\Doodad\\BellTollHorde.wav")
+LSM:Register("sound", "Blizzard: Bell - Night Elf", "Sound\\Doodad\\BellTollNightElf.wav")
+LSM:Register("sound", "Blizzard: Drum Hit",         "Sound\\Doodad\\BellTollTribal.wav")
+LSM:Register("sound", "Blizzard: Gong - Troll",     "Sound\\Doodad\\G_GongTroll01.wav")
+LSM:Register("sound", "Blizzard: Karazhan Bell",    "Sound\\Doodad\\KharazahnBellToll.wav")
+LSM:Register("sound", "Blizzard: Mellow Bells",     "Sound\\Spells\\ShaysBell.wav")
 
 
 local db
