@@ -25,8 +25,17 @@ local uClockBlock = LibStub("LibDataBroker-1.1"):NewDataObject("uClock", {
 	OnClick = function(self, button)
 		if button == "LeftButton" then
 			if IsShiftKeyDown() then
-				if GroupCalendar then GroupCalendar.ToggleCalendarDisplay()
-				else ToggleCalendar() end
+				if IsAddOnLoaded("GroupCalendar5") then -- Version 5
+					if GroupCalendar.UI.Window:IsShown() then
+						GroupCalendar.UI.Window:Hide()
+					else
+						GroupCalendar.UI.Window:Show()
+					end
+				elseif IsAddOnLoaded("GroupCalendar") then -- Version 4
+					GroupCalendar.ToggleCalendarDisplay()
+				else
+					ToggleCalendar()
+				end
 			else
 				ToggleTimeManager()
 			end
