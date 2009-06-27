@@ -1,3 +1,6 @@
+Version 3.2.2
+- Fixed calendar toggle for users with GroupCalendar version 5.
+
 Version 3.2.1
 - Added some more sounds for the hourly chime, recommended by Nandini.
 

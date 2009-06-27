@@ -4,9 +4,9 @@
 ## Notes-zhCN: 简洁的显示日期与时间的 Broker 插件模块
 ## Notes-zhTW: 簡潔的顯示日期與時間的 Broker 插件模組
 ## Author: Ethan Centaurai
-## Version: 3.2.1
+## Version: 3.2.2
 ## SavedVariables: uClockDB
-## OptionalDeps: Ace3, LibDataBroker-1.1
+## OptionalDeps: Ace3, LibDataBroker-1.1, GroupCalendar, GroupCalendar5
 
 #@no-lib-strip@
 Lib\LibStub\LibStub.lua
