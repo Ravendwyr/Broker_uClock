@@ -10,7 +10,9 @@ externals:
    Lib/AceGUI-3.0-SharedMediaWidgets: svn://svn.wowace.com/wow/ace-gui-3-0-shared-media-widgets/mainline/trunk/AceGUI-3.0-SharedMediaWidgets
    Lib/AceConfig-3.0: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceConfig-3.0
    Lib/LibSharedMedia-3.0: svn://svn.wowace.com/wow/libsharedmedia-3-0/mainline/trunk/LibSharedMedia-3.0
-   Lib/LibDataBroker-1.1: git://github.com/tekkub/libdatabroker-1-1.git
+   Lib/LibDataBroker-1.1:
+      url: git://git.wowace.com/wow/libdatabroker-1-1/mainline.git 
+      tag: v1.1.4
 
 manual-changelog: CHANGELOG.txt
 
