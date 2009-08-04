@@ -1,3 +1,7 @@
+Version 3.2.3
+- Updated for WoW 3.2.0.
+- Library update.
+
 Version 3.2.2
 - Fixed calendar toggle for users with GroupCalendar version 5.
 

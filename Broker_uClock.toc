@@ -1,4 +1,4 @@
-## Interface: 30100
+## Interface: 30200
 ## Title: Broker uClock
 ## Notes: Minimalistic time/date plugin for Broker.
 ## Notes-zhCN: 简洁的显示日期与时间的 Broker 插件模块
