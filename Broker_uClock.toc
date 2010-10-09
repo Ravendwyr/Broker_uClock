@@ -1,17 +1,16 @@
 ## Interface: 30300
 ## Title: Broker uClock
-## Notes: Minimalistic time/date display.
+## Notes: Lightweight time/date display with optional hourly chime.
 ## Notes-zhCN: 简洁的显示日期与时间的 Broker 插件模块
 ## Notes-zhTW: 簡潔的顯示日期與時間的 Broker 插件模組
 ## Author: Ethan Centaurai
-## Version: 3.2.3
+## Version: 3.3.0
 ## SavedVariables: uClockDB
 ## OptionalDeps: Blizzard_TimeManager, Ace3, LibDataBroker-1.1, GroupCalendar, GroupCalendar5
 
 #@no-lib-strip@
 Lib\LibStub\LibStub.lua
 Lib\CallbackHandler-1.0\CallbackHandler-1.0.lua
-Lib\AceAddon-3.0\AceAddon-3.0.lua
 Lib\AceDB-3.0\AceDB-3.0.lua
 Lib\AceGUI-3.0\AceGUI-3.0.xml
 Lib\AceConfig-3.0\AceConfig-3.0.xml
