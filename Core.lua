@@ -4,7 +4,7 @@
 -------------------
 
 local AceConfig = LibStub("AceConfig-3.0")
-local AceConfigDialog = LibStub("AceConfigDialog-3.0)
+local AceConfigDialog = LibStub("AceConfigDialog-3.0")
 
 local L = LibStub("AceLocale-3.0"):GetLocale("uClock")
 local localTime, realmTime, utcTime, displayedTime
@@ -24,6 +24,7 @@ LibStub("AceTimer-3.0"):Embed(uClock)
 
 uClock.type = "data source"
 uClock.icon = "Interface\\Icons\\Spell_Holy_BorrowedTime"
+uClock.text = "Loading..."
 
 
 -------------------
@@ -58,8 +59,8 @@ function uClock:PLAYER_LOGIN()
 	db = self.db.profile
 
 	AceConfig:RegisterOptionsTable(name, uClock.CreateConfig)
-	AceConfigDialog:AddToBlizOptions(name, name)
-	AceConfigDialog:SetDefaultSize(name, 800, 500)
+	AceConfigDialog:AddToBlizOptions(name, "Broker uClock")
+	AceConfigDialog:SetDefaultSize(name, 600, 300)
 
 	_G.SlashCmdList["UCLOCK"] = function() AceConfigDialog:Open(name) end
 	_G["SLASH_UCLOCK1"] = "/uclock"
@@ -76,7 +77,7 @@ end
 -- Data Broker
 -------------------
 
-function uClock:OnClick(_, button)
+function uClock:OnClick(button)
 	if button == "LeftButton" then
 		if IsShiftKeyDown() then
 			if IsAddOnLoaded("GroupCalendar5") then -- Version 5
@@ -94,19 +95,30 @@ function uClock:OnClick(_, button)
 			ToggleTimeManager()
 		end
 	elseif button == "RightButton" then
+		GameTooltip:Hide()
 		AceConfigDialog:Open(name)
 	end
 end
 
-function uClock:OnTooltipShow(tooltip)
-	tooltip:AddDoubleLine(L["Today's Date"], uClock:CreateDateString(date(L["%A, %B %d, %Y"])))
-	tooltip:AddDoubleLine(L["Local Time"], localTime)
-	tooltip:AddDoubleLine(L["Server Time"], realmTime)
-	tooltip:AddDoubleLine(L["UTC Time"], utcTime)
-	tooltip:AddLine(" ")
-	tooltip:AddLine(L["|cffeda55fClick|r to toggle the Time Manager."], 0.2, 1, 0.2)
-	tooltip:AddLine(L["|cffeda55fShift-Click|r to toggle the Calendar."], 0.2, 1, 0.2)
-	tooltip:AddLine(L["|cffeda55fRight-Click|r for options."], 0.2, 1, 0.2)
+function uClock:OnEnter()
+	GameTooltip:SetOwner(self, "ANCHOR_NONE")
+	GameTooltip:SetPoint("TOPLEFT", self, "BOTTOMLEFT")
+	GameTooltip:ClearLines()
+
+	GameTooltip:AddDoubleLine(L["Today's Date"], uClock:CreateDateString(date(L["%A, %B %d, %Y"])))
+	GameTooltip:AddDoubleLine(L["Local Time"], localTime)
+	GameTooltip:AddDoubleLine(L["Server Time"], realmTime)
+	GameTooltip:AddDoubleLine(L["UTC Time"], utcTime)
+	GameTooltip:AddLine(" ")
+	GameTooltip:AddLine(L["|cffeda55fClick|r to toggle the Time Manager."], 0.2, 1, 0.2)
+	GameTooltip:AddLine(L["|cffeda55fShift-Click|r to toggle the Calendar."], 0.2, 1, 0.2)
+	GameTooltip:AddLine(L["|cffeda55fRight-Click|r for options."], 0.2, 1, 0.2)
+
+	GameTooltip:Show()
+end
+
+function uClock:OnLeave()
+	GameTooltip:Hide()
 end
 
 
@@ -162,7 +174,7 @@ function uClock:CreateConfig()
 				name = _G.SHOW_CLOCK, desc = _G.OPTION_TOOLTIP_SHOW_CLOCK,
 				type = "toggle", order = 11,
 				set = function(_, value)
---					db.showClock = value
+					db.showClock = value
 
 					if value then TimeManagerClockButton:Show()
 					else TimeManagerClockButton:Hide() end
