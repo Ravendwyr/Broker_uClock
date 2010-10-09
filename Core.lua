@@ -173,6 +173,7 @@ function uClock:CreateConfig()
 			showClock = {
 				name = _G.SHOW_CLOCK, desc = _G.OPTION_TOOLTIP_SHOW_CLOCK,
 				type = "toggle", order = 11,
+				get = function() return db.showClock end,
 				set = function(_, value)
 					db.showClock = value
 
