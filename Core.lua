@@ -1,5 +1,35 @@
 
+-------------------
+-- Locals
+-------------------
+
+local AceConfig = LibStub("AceConfig-3.0")
+local AceConfigDialog = LibStub("AceConfigDialog-3.0)
+
 local L = LibStub("AceLocale-3.0"):GetLocale("uClock")
+local localTime, realmTime, utcTime, displayedTime
+local locale = GetLocale()
+local db
+
+
+-------------------
+-- Namespace
+-------------------
+
+local name, uClock = ...
+
+LibStub("LibDataBroker-1.1"):NewDataObject(name, uClock)
+LibStub("AceEvent-3.0"):Embed(uClock)
+LibStub("AceTimer-3.0"):Embed(uClock)
+
+uClock.type = "data source"
+uClock.icon = "Interface\\Icons\\Spell_Holy_BorrowedTime"
+
+
+-------------------
+-- Media
+-------------------
+
 local LSM = LibStub("LibSharedMedia-3.0")
 
 LSM:Register("sound", "Blizzard: Alarm Clock 1",    "Sound\\Interface\\AlarmClockWarning1.wav")
@@ -14,59 +44,78 @@ LSM:Register("sound", "Blizzard: Karazhan Bell",    "Sound\\Doodad\\KharazahnBel
 LSM:Register("sound", "Blizzard: Mellow Bells",     "Sound\\Spells\\ShaysBell.wav")
 
 
-local db
-local localTime, realmTime, utcTime, displayedTime
-local locale = GetLocale()
+-------------------
+-- Enable
+-------------------
 
-local uClock = LibStub("AceAddon-3.0"):NewAddon("uClock", 'AceTimer-3.0')
-local uClockBlock = LibStub("LibDataBroker-1.1"):NewDataObject("uClock", {
-	type = "data source", icon = "Interface\\Icons\\INV_Misc_PocketWatch_02",
-
-	OnClick = function(self, button)
-		if button == "LeftButton" then
-			if IsShiftKeyDown() then
-				if IsAddOnLoaded("GroupCalendar5") then -- Version 5
-					if GroupCalendar.UI.Window:IsShown() then
-						GroupCalendar.UI.Window:Hide()
-					else
-						GroupCalendar.UI.Window:Show()
-					end
-				elseif IsAddOnLoaded("GroupCalendar") then -- Version 4
-					GroupCalendar.ToggleCalendarDisplay()
-				else
-					ToggleCalendar()
-				end
-			else
-				ToggleTimeManager()
-			end
-		elseif button == "RightButton" then
-			InterfaceOptionsFrame_OpenToCategory("Broker uClock")
-		end
-	end,
-
-	OnTooltipShow = function(tooltip)
-		tooltip:AddDoubleLine(L["Today's Date"], uClock:CreateDateString(date(L["%A, %B %d, %Y"])))
-		tooltip:AddDoubleLine(L["Local Time"], localTime)
-		tooltip:AddDoubleLine(L["Server Time"], realmTime)
-		tooltip:AddDoubleLine(L["UTC Time"], utcTime)
-		tooltip:AddLine(" ")
-		tooltip:AddLine(L["|cffeda55fClick|r to toggle the Time Manager."], 0.2, 1, 0.2)
-		tooltip:AddLine(L["|cffeda55fShift-Click|r to toggle the Calendar."], 0.2, 1, 0.2)
-		tooltip:AddLine(L["|cffeda55fRight-Click|r for options."], 0.2, 1, 0.2)
-	end,
-})
-
-
-function uClock:OnEnable()
+function uClock:PLAYER_LOGIN()
 	self.db = LibStub("AceDB-3.0"):New("uClockDB", { profile = {
 		showLocal = true, showRealm = false, showUTC = false,
-		twentyFour = true, showSeconds = false,
+		twentyFour = true, showSeconds = false, showClock = true,
 		hourlyChime = true, hourlyChimeFile = "Blizzard: Alarm Clock 3",
 	}}, "Default")
 
 	db = self.db.profile
 
-	LibStub("AceConfig-3.0"):RegisterOptionsTable("uClock", {
+	AceConfig:RegisterOptionsTable(name, uClock.CreateConfig)
+	AceConfigDialog:AddToBlizOptions(name, name)
+	AceConfigDialog:SetDefaultSize(name, 800, 500)
+
+	_G.SlashCmdList["UCLOCK"] = function() AceConfigDialog:Open(name) end
+	_G["SLASH_UCLOCK1"] = "/uclock"
+	_G["SLASH_UCLOCK2"] = "/uc"
+
+	if not db.showClock then TimeManagerClockButton:Hide() end
+
+	self:UnregisterAllEvents()
+	self:ScheduleRepeatingTimer("UpdateTimeStrings", 1)
+end
+
+
+-------------------
+-- Data Broker
+-------------------
+
+function uClock:OnClick(_, button)
+	if button == "LeftButton" then
+		if IsShiftKeyDown() then
+			if IsAddOnLoaded("GroupCalendar5") then -- Version 5
+				if GroupCalendar.UI.Window:IsShown() then
+					GroupCalendar.UI.Window:Hide()
+				else
+					GroupCalendar.UI.Window:Show()
+				end
+			elseif IsAddOnLoaded("GroupCalendar") then -- Version 4 or below
+				GroupCalendar.ToggleCalendarDisplay()
+			else
+				ToggleCalendar()
+			end
+		else
+			ToggleTimeManager()
+		end
+	elseif button == "RightButton" then
+		AceConfigDialog:Open(name)
+	end
+end
+
+function uClock:OnTooltipShow(tooltip)
+	tooltip:AddDoubleLine(L["Today's Date"], uClock:CreateDateString(date(L["%A, %B %d, %Y"])))
+	tooltip:AddDoubleLine(L["Local Time"], localTime)
+	tooltip:AddDoubleLine(L["Server Time"], realmTime)
+	tooltip:AddDoubleLine(L["UTC Time"], utcTime)
+	tooltip:AddLine(" ")
+	tooltip:AddLine(L["|cffeda55fClick|r to toggle the Time Manager."], 0.2, 1, 0.2)
+	tooltip:AddLine(L["|cffeda55fShift-Click|r to toggle the Calendar."], 0.2, 1, 0.2)
+	tooltip:AddLine(L["|cffeda55fRight-Click|r for options."], 0.2, 1, 0.2)
+end
+
+
+-------------------
+-- Config
+-------------------
+
+function uClock:CreateConfig()
+	return {
 		name = "Broker uClock", type = "group",
 		get = function(key) return db[key.arg] end,
 		set = function(key, value) db[key.arg] = value uClock:UpdateTimeStrings() end,
@@ -112,24 +161,21 @@ function uClock:OnEnable()
 			showClock = {
 				name = _G.SHOW_CLOCK, desc = _G.OPTION_TOOLTIP_SHOW_CLOCK,
 				type = "toggle", order = 11,
-				get = function(_) return GetCVar("showClock") == "1" end,
 				set = function(_, value)
-					SetCVar("showClock", value and "1" or "0")
-					InterfaceOptionsDisplayPanelShowClock_SetFunc(value and "1" or "0")
+--					db.showClock = value
+
+					if value then TimeManagerClockButton:Show()
+					else TimeManagerClockButton:Hide() end
 				end,
 			},
 		},
-	})
-
-	LibStub("AceConfigDialog-3.0"):AddToBlizOptions("uClock", "Broker uClock")
-
-	_G.SlashCmdList["UCLOCK"] = function() InterfaceOptionsFrame_OpenToCategory("Broker uClock") end
-	_G["SLASH_UCLOCK1"] = "/uclock"
-	_G["SLASH_UCLOCK2"] = "/uc"
-
-	self:ScheduleRepeatingTimer("UpdateTimeStrings", 1)
+	}
 end
 
+
+-------------------
+-- Core
+-------------------
 
 function uClock:CreateDateString(message) -- workaround for date() not returning localised days/months
 	if locale == "enUS" or locale == "enGB" then return message end
@@ -160,7 +206,7 @@ function uClock:UpdateTimeStrings()
 	local uHour, uMinute = date("!%H"), date("!%M")
 	local seconds = date("%S")
 
-	if db.hourlyChime and lMinute == "00" and seconds == "00" then -- use local time as the difference between it and the realm time is minimal
+	if db.hourlyChime and lMinute == "00" and seconds == "00" then -- use local time as the difference between local and realm time is minimal
 		PlaySoundFile(LSM:Fetch("sound", db.hourlyChimeFile))
 	end
 
@@ -205,5 +251,13 @@ function uClock:UpdateTimeStrings()
 
 	displayedTime = displayedTime:gsub(" | $", "") -- remove trailing seperator
 
-	uClockBlock.text = displayedTime
+	self.text = displayedTime
 end
+
+
+-------------------
+-- Load
+-------------------
+
+if IsLoggedIn() then uClock:PLAYER_LOGIN()
+else uClock:RegisterEvent("PLAYER_LOGIN") end
