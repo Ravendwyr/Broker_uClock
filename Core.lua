@@ -3,6 +3,8 @@
 -- Locals
 -------------------
 
+local cataclysm = select(4, GetBuildInfo()) >= 40000
+
 local AceConfig = LibStub("AceConfig-3.0")
 local AceConfigDialog = LibStub("AceConfigDialog-3.0")
 
@@ -19,6 +21,7 @@ local db
 local name, uClock = ...
 
 LibStub("LibDataBroker-1.1"):NewDataObject(name, uClock)
+LibStub("AceEvent-3.0"):Embed(uClock)
 LibStub("AceTimer-3.0"):Embed(uClock)
 
 uClock.type = "data source"
@@ -45,19 +48,24 @@ LSM:Register("sound", "Blizzard: Mellow Bells",     "Sound\\Spells\\ShaysBell.wa
 
 
 -------------------
--- Enable
+-- Events
 -------------------
 
-function uClock:Load()
-	self.db = LibStub("AceDB-3.0"):New("uClockDB", { profile = {
+function uClock:PLAYER_LOGIN()
+	db = LibStub("AceDB-3.0"):New("uClockDB", { profile = {
 		showLocal = true, showRealm = false, showUTC = false,
 		twentyFour = true, showSeconds = false, showClock = true,
 		hourlyChime = true, hourlyChimeFile = "Blizzard: Alarm Clock 3",
-	}}, "Default")
+	}}, "Default").profile
 
-	db = self.db.profile
-
-	if not db.showClock then TimeManagerClockButton:Hide() end
+	if not db.showClock then
+		if cataclysm then
+			TimeManagerClockButton:Hide()
+		else
+			SetCVar("showClock", "0")
+			InterfaceOptionsDisplayPanelShowClock_SetFunc("0")
+		end
+	end
 
 	AceConfig:RegisterOptionsTable(name, uClock.CreateConfig)
 	AceConfigDialog:AddToBlizOptions(name, "Broker uClock")
@@ -67,8 +75,8 @@ function uClock:Load()
 	_G["SLASH_UCLOCK1"] = "/uclock"
 	_G["SLASH_UCLOCK2"] = "/uc"
 
+	self:UnregisterEvent("PLAYER_LOGIN")
 	self:ScheduleRepeatingTimer("UpdateTimeStrings", 1)
-	self.Load = nil -- no longer needed
 end
 
 
@@ -253,13 +261,17 @@ function uClock:CreateConfig()
 			},
 			showClock = {
 				name = _G.SHOW_CLOCK, desc = _G.OPTION_TOOLTIP_SHOW_CLOCK,
-				type = "toggle", order = 11,
-				get = function() return db.showClock end, -- what is this I don't even...
+				type = "toggle", order = 11, arg = "showClock",
 				set = function(_, value)
 					db.showClock = value
 
-					if value then TimeManagerClockButton:Show()
-					else TimeManagerClockButton:Hide() end
+					if cataclysm then
+						if value then TimeManagerClockButton:Show()
+						else TimeManagerClockButton:Hide() end
+					else
+						SetCVar("showClock", value and "1" or "0")
+						InterfaceOptionsDisplayPanelShowClock_SetFunc(value and "1" or "0")
+					end
 				end,
 			},
 		},
@@ -271,4 +283,5 @@ end
 -- Load
 -------------------
 
-uClock:Load()
+if IsLoggedIn() then uClock:PLAYER_LOGIN()
+else uClock:RegisterEvent("PLAYER_LOGIN") end
