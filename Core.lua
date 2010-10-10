@@ -67,6 +67,9 @@ function uClock:PLAYER_LOGIN()
 		end
 	end
 
+	TimeManagerClockButton:HookScript("OnShow", function() db.showClock = true end)
+	TimeManagerClockButton:HookScript("OnHide", function() db.showClock = false end)
+
 	AceConfig:RegisterOptionsTable(name, uClock.CreateConfig)
 	AceConfigDialog:AddToBlizOptions(name, "Broker uClock")
 	AceConfigDialog:SetDefaultSize(name, 600, 300)
@@ -263,8 +266,6 @@ function uClock:CreateConfig()
 				name = _G.SHOW_CLOCK, desc = _G.OPTION_TOOLTIP_SHOW_CLOCK,
 				type = "toggle", order = 11, arg = "showClock",
 				set = function(_, value)
-					db.showClock = value
-
 					if cataclysm then
 						if value then TimeManagerClockButton:Show()
 						else TimeManagerClockButton:Hide() end
