@@ -1,5 +1,11 @@
+Version 3.3
+- Updated for Patch 4.0.1.
+- Re-written again to (hopefully) be even more efficient.
+- Fixed a bug caused by Blizzard removing the "Show Clock" option in Patch 4.0.1.
+- Removed unneeded libraries.
+
 Version 3.2.3
-- Updated for WoW 3.2.0.
+- Updated for Patch 3.2.0.
 - Library update.
 
 Version 3.2.2
@@ -7,9 +13,10 @@ Version 3.2.2
 
 Version 3.2.1
 - Added some more sounds for the hourly chime, recommended by Nandini.
+- Fixed a bug which caused the hourly chime to play 60 times. Whoops.
 
 Version 3.2
-- Added an option to chime at the top of every hour (i.e. 1:00pm etc). The chime sound is configurable.
+- Added an option to chime at the top of every hour. The chime sound is configurable.
 - Added an option to show or hide Blizzard's minimap clock.
 - Configuration has been moved to Blizzard's Interface Options frame.
 
@@ -32,7 +39,7 @@ Version 3.1
 - Removed the text colour options, as most Broker Displays already have text colouring options.
 
 Version 3.0.3
-- Updated for WoW 3.1.0.
+- Updated for Patch 3.1.0.
 
 Version 3.0.2
 - You can now choose to show local time, realm time, or both in the display.
@@ -60,7 +67,7 @@ Version 2.0.8
 - Having the "Show Coloured Text" option enabled should now make the text white instead of FuBar's default yellow.
 
 Version 2.0.7
-- Updated .toc for Patch 3.0.2.
+- Updated for Patch 3.0.2.
 - Added Server Time display. Game Time can now be found in the tooltip.
 - Added options to show seconds and show 12hr format.
 - Shift-clicking the plugin will now toggle Blizzard's Calendar.
