@@ -3,8 +3,6 @@
 -- Locals
 -------------------
 
-local cataclysm = select(4, GetBuildInfo()) >= 40000
-
 local AceConfig = LibStub("AceConfig-3.0")
 local AceConfigDialog = LibStub("AceConfigDialog-3.0")
 
@@ -265,14 +263,9 @@ function uClock:CreateConfig()
 			showClock = {
 				name = _G.SHOW_CLOCK, desc = _G.OPTION_TOOLTIP_SHOW_CLOCK,
 				type = "toggle", order = 11, arg = "showClock",
-				set = function(_, value)
-					if cataclysm then
-						if value then TimeManagerClockButton:Show()
-						else TimeManagerClockButton:Hide() end
-					else
-						SetCVar("showClock", value and "1" or "0")
-						InterfaceOptionsDisplayPanelShowClock_SetFunc(value and "1" or "0")
-					end
+				set = function(_, value) -- the hooks in OnEnable will save the setting
+					if value then TimeManagerClockButton:Show()
+					else TimeManagerClockButton:Hide() end
 				end,
 			},
 		},
