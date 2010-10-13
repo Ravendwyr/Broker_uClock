@@ -56,14 +56,7 @@ function uClock:PLAYER_LOGIN()
 		hourlyChime = true, hourlyChimeFile = "Blizzard: Alarm Clock 3",
 	}}, "Default").profile
 
-	if not db.showClock then
-		if cataclysm then
-			TimeManagerClockButton:Hide()
-		else
-			SetCVar("showClock", "0")
-			InterfaceOptionsDisplayPanelShowClock_SetFunc("0")
-		end
-	end
+	if not db.showClock then TimeManagerClockButton:Hide() end
 
 	TimeManagerClockButton:HookScript("OnShow", function() db.showClock = true end)
 	TimeManagerClockButton:HookScript("OnHide", function() db.showClock = false end)
