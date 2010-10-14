@@ -51,13 +51,14 @@ LSM:Register("sound", "Blizzard: Mellow Bells",     "Sound\\Spells\\ShaysBell.wa
 
 function uClock:PLAYER_LOGIN()
 	db = LibStub("AceDB-3.0"):New("uClockDB", { profile = {
-		showLocal = true, showRealm = false, showUTC = false,
+		showLocal = true, showRealm = false, showUTC = false, swap = false,
 		twentyFour = true, showSeconds = false, showClock = true,
 		hourlyChime = true, hourlyChimeFile = "Blizzard: Alarm Clock 3",
 	}}, "Default").profile
 
 	if not db.showClock then TimeManagerClockButton:Hide() end
 
+	-- These hooks are here to allow Chinchilla Minimap to play nice with Broker uClock.
 	TimeManagerClockButton:HookScript("OnShow", function() db.showClock = true end)
 	TimeManagerClockButton:HookScript("OnHide", function() db.showClock = false end)
 
@@ -144,15 +145,20 @@ function uClock:UpdateTimeStrings()
 		utcTime   = utcTime .. (uPM and L[" PM"] or L[" AM"])
 	end
 
+
 	displayedTime = ""
 
-	if db.showLocal then displayedTime = displayedTime..localTime.." | " end
-	if db.showRealm then displayedTime = displayedTime..realmTime.." | " end
+	if db.swap then -- local > realm
+		if db.showLocal then displayedTime = displayedTime..localTime.." | " end
+		if db.showRealm then displayedTime = displayedTime..realmTime.." | " end
+	else -- realm > local
+		if db.showRealm then displayedTime = displayedTime..realmTime.." | " end
+		if db.showLocal then displayedTime = displayedTime..localTime.." | " end
+	end
+
 	if db.showUTC then displayedTime = displayedTime..utcTime end
 
-	displayedTime = displayedTime:gsub(" | $", "") -- remove any trailing seperators
-
-	self.text = displayedTime
+	self.text = displayedTime:gsub(" | $", "") -- remove any trailing seperators
 end
 
 
@@ -189,8 +195,8 @@ function uClock:OnEnter()
 	GameTooltip:ClearLines()
 
 	GameTooltip:AddDoubleLine(L["Today's Date"], uClock:CreateDateString(date(L["%A, %B %d, %Y"])))
-	GameTooltip:AddDoubleLine(L["Local Time"], localTime)
 	GameTooltip:AddDoubleLine(L["Server Time"], realmTime)
+	GameTooltip:AddDoubleLine(L["Local Time"], localTime)
 	GameTooltip:AddDoubleLine(L["UTC Time"], utcTime)
 	GameTooltip:AddLine(" ")
 	GameTooltip:AddLine(L["|cffeda55fClick|r to toggle the Time Manager."], 0.2, 1, 0.2)
@@ -229,37 +235,38 @@ function uClock:CreateConfig()
 				name = L["Show UTC Time"],
 				type = "toggle", order = 4, arg = "showUTC",
 			},
-
-			header2 = { name = "Format Options", type = "header", order = 5 },
-
+			showSeconds = {
+				name = L["Show Seconds"],
+				type = "toggle", order = 5, arg = "showSeconds",
+			},
 			twentyFour = {
 				name = L["24 Hour Mode"],
 				type = "toggle", order = 6, arg = "twentyFour",
 			},
-			showSeconds = {
-				name = L["Show Seconds"],
-				type = "toggle", order = 7, arg = "showSeconds",
+			swap = {
+				name = "Swap", desc = "Swaps the order of local time and realm time.",
+				type = "toggle", order = 7, arg = "swap",
 			},
 
-			header3 = { name = "Advanced Options", type = "header", order = 8 },
+			header2 = { name = "Advanced Options", type = "header", order = 8 },
 
-			hourlyChime = {
-				name = "Hourly Chime",
-				type = "toggle", order = 9, arg = "hourlyChime",
-			},
-			hourlyChimeFile = {
-				name = "Chime Sound",
-				type = "select", order = 10, arg = "hourlyChimeFile",
-				dialogControl = "LSM30_Sound", values = AceGUIWidgetLSMlists.sound,
-				disabled = function() return not db.hourlyChime end,
-			},
 			showClock = {
 				name = _G.SHOW_CLOCK, desc = _G.OPTION_TOOLTIP_SHOW_CLOCK,
-				type = "toggle", order = 11, arg = "showClock",
+				type = "toggle", order = 9, arg = "showClock",
 				set = function(_, value) -- the hooks in OnEnable will save the setting
 					if value then TimeManagerClockButton:Show()
 					else TimeManagerClockButton:Hide() end
 				end,
+			},
+			hourlyChime = {
+				name = "Hourly Chime",
+				type = "toggle", order = 10, arg = "hourlyChime",
+			},
+			hourlyChimeFile = {
+				name = "Chime Sound",
+				type = "select", order = 11, arg = "hourlyChimeFile",
+				dialogControl = "LSM30_Sound", values = AceGUIWidgetLSMlists.sound,
+				disabled = function() return not db.hourlyChime end,
 			},
 		},
 	}
