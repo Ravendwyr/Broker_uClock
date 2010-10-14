@@ -1,5 +1,6 @@
-Version 3.3.1
-- Fixed a stupid yet serious bug. A huge thanks to zaphon for spotting it!
+Version 3.3.2
+- Fixed some stupid but major bugs. Many thanks to zaphon and doxxx for spotting these.
+- Added a much requested Swap option which swaps the order of local time and server time in the display.
 
 Version 3.3
 - Updated for Patch 4.0.1.
