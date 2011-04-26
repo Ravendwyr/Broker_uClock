@@ -1,4 +1,7 @@
-Version 3.3.2a
+Version 3.3.3
+- Updated for Patch 4.1.0.
+
+Version 3.3.2
 - Fixed some stupid but major bugs. Many thanks to zaphon and doxxx for spotting these.
 - Added a much requested Swap option which swaps the order of local time and server time in the display.
 
