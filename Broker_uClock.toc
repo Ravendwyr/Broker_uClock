@@ -6,6 +6,7 @@
 ## Author: Ethan Centaurai
 ## Version: 3.3.4
 ## SavedVariables: uClockDB
+## X-Icon: Interface\Icons\Spell_Holy_BorrowedTime
 ## OptionalDeps: Blizzard_TimeManager, Ace3, LibDataBroker-1.1, GroupCalendar, GroupCalendar5
 
 #@no-lib-strip@

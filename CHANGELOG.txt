@@ -1,5 +1,6 @@
 Version 3.3.4
 - Updated for Patch 4.2.0.
+- Added an icon for Ampere.
 
 Version 3.3.3
 - Updated for Patch 4.1.0.
