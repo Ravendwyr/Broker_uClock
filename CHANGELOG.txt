@@ -1,3 +1,6 @@
+Version 3.3.6
+- Updated for Patch 5.0.4.
+
 Version 3.3.5
 - Updated for Patch 4.3.0.
 
