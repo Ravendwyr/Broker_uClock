@@ -12,6 +12,4 @@ externals:
    Lib/LibSharedMedia-3.0: svn://svn.wowace.com/wow/libsharedmedia-3-0/mainline/trunk/LibSharedMedia-3.0
    Lib/LibDataBroker-1.1: git://git.wowace.com/wow/libdatabroker-1-1/mainline.git
 
-manual-changelog: CHANGELOG.txt
-
 license-output: LICENSE.txt
