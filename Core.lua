@@ -33,16 +33,16 @@ uClock.text = "Loading..."
 
 local LSM = LibStub("LibSharedMedia-3.0")
 
-LSM:Register("sound", "Blizzard: Alarm Clock 1",    "Sound\\Interface\\AlarmClockWarning1.wav")
-LSM:Register("sound", "Blizzard: Alarm Clock 2",    "Sound\\Interface\\AlarmClockWarning2.wav")
-LSM:Register("sound", "Blizzard: Alarm Clock 3",    "Sound\\Interface\\AlarmClockWarning3.wav")
-LSM:Register("sound", "Blizzard: Bell - Alliance",  "Sound\\Doodad\\BellTollAlliance.wav")
-LSM:Register("sound", "Blizzard: Bell - Horde",     "Sound\\Doodad\\BellTollHorde.wav")
-LSM:Register("sound", "Blizzard: Bell - Night Elf", "Sound\\Doodad\\BellTollNightElf.wav")
-LSM:Register("sound", "Blizzard: Drum Hit",         "Sound\\Doodad\\BellTollTribal.wav")
-LSM:Register("sound", "Blizzard: Gong - Troll",     "Sound\\Doodad\\G_GongTroll01.wav")
-LSM:Register("sound", "Blizzard: Karazhan Bell",    "Sound\\Doodad\\KharazahnBellToll.wav")
-LSM:Register("sound", "Blizzard: Mellow Bells",     "Sound\\Spells\\ShaysBell.wav")
+LSM:Register("sound", "Blizzard: Alarm Clock 1",    567436) -- "Sound\\Interface\\AlarmClockWarning1.wav")
+LSM:Register("sound", "Blizzard: Alarm Clock 2",    567399) -- "Sound\\Interface\\AlarmClockWarning2.wav")
+LSM:Register("sound", "Blizzard: Alarm Clock 3",    567458) -- "Sound\\Interface\\AlarmClockWarning3.wav")
+LSM:Register("sound", "Blizzard: Bell - Alliance",  566564) -- "Sound\\Doodad\\BellTollAlliance.wav")
+LSM:Register("sound", "Blizzard: Bell - Horde",     565853) -- "Sound\\Doodad\\BellTollHorde.wav")
+LSM:Register("sound", "Blizzard: Bell - Night Elf", 566558) -- "Sound\\Doodad\\BellTollNightElf.wav")
+LSM:Register("sound", "Blizzard: Drum Hit",         566027) -- "Sound\\Doodad\\BellTollTribal.wav")
+LSM:Register("sound", "Blizzard: Gong - Troll",     565564) -- "Sound\\Doodad\\G_GongTroll01.wav")
+LSM:Register("sound", "Blizzard: Karazhan Bell",    566254) -- "Sound\\Doodad\\KharazahnBellToll.wav")
+LSM:Register("sound", "Blizzard: Mellow Bells",     568154) -- "Sound\\Spells\\ShaysBell.wav")
 
 
 -------------------
