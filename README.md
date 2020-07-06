@@ -2,10 +2,9 @@
 
 Minimalistic date/time display for Broker with optional hourly chime.
 
-[![Twitter](https://img.shields.io/twitter/follow/ravendwyr.svg?label=Twitter&style=popout)](https://twitter.com/Ravendwyr)
-[![Discord](https://img.shields.io/discord/299308204393889802.svg?label=Discord&style=popout)](https://discord.gg/XC2REFu)
-[![Version](https://img.shields.io/github/tag-date/ethancentaurai/broker_uclock.svg?label=Version&style=popout)](https://www.curseforge.com/wow/addons/broker-uclock/files)
-[![Tracker](https://img.shields.io/github/issues/ethancentaurai/broker_uclock.svg?label=Issues&style=popout)](https://github.com/EthanCentaurai/Broker_uClock/issues)
+[![Builder](https://img.shields.io/travis/com/ravendwyr/broker_uclock.svg?label=Build&logo=travis&maxAge=600&style=popout)](https://travis-ci.com/github/Ravendwyr/Broker_uClock)
+[![Version](https://img.shields.io/github/tag-date/ravendwyr/broker_uclock.svg?label=Version&logo=codeigniter&maxAge=600&style=popout)](https://www.curseforge.com/wow/addons/broker-uclock/files/all)
+[![Tracker](https://img.shields.io/github/issues/ravendwyr/broker_uclock.svg?label=Issues&logo=github&maxAge=600&style=popout)](https://github.com/Ravendwyr/Broker_uClock/issues)
 
 ***
 
@@ -18,7 +17,7 @@ Broker uClock is the spiritual successor to my old [FuBar uClock](https://www.wo
 * Toggles the in-game Time Manager (stop watch, alarm clock, etc.) if clicked.
 * Toggles GroupCalendar (if installed) or the in-game calendar if shift-clicked.
 
-As uClock is written to utilise LibDataBroker, you must also install a "broker display" addon in order for this addon to work. I recommend [Bazooka](https://www.wowinterface.com/downloads/info14767), [Fortress](https://www.wowinterface.com/downloads/info10401) or [Titan Panel](https://www.wowinterface.com/downloads/info8092).
+As uClock is written to utilise LibDataBroker, you must also install a "broker display" addon in order for this addon to work.
 
 ## Configuration
 
@@ -28,3 +27,15 @@ Options can be found in the config window accessed by right-clicking the plugin.
 * Choose which time formats you want shown in the data feed, and what order they appear in.
 * Choose whether to show seconds or hide them.
 * Choose whether to have the time shown in 12-hour or 24-hour format.
+
+***
+
+### Support
+
+[![Twitter](https://img.shields.io/twitter/follow/ravendwyr.svg?label=Twitter&logo=twitter&maxAge=600&style=popout)](https://twitter.com/Ravendwyr)
+[![Discord](https://img.shields.io/discord/299308204393889802.svg?label=Discord&logo=discord&maxAge=600&style=popout)](https://discord.gg/XC2REFu)
+
+[![Twitch](https://img.shields.io/badge/Twitch-subscribe-yellow.svg?&logo=twitch)](https://www.twitch.tv/subs/ravendwyr)
+[![Crypto](https://img.shields.io/badge/ETH-send-yellow.svg?&logo=ethereum)](https://etherscan.io/address/0x332224Ed82264298B3DC68dAcf643E8Df4abDCC3)
+[![PayPal](https://img.shields.io/badge/PayPal-donate-yellow.svg?logo=paypal)](https://www.paypal.me/Ravendwyr/5gbp)
+[![Coffee](https://img.shields.io/badge/Kofi-buy-yellow.svg?logo=ko-fi)](https://ko-fi.com/Ravendwyr)
