@@ -3,11 +3,13 @@
 ## Notes: Lightweight time/date display with optional hourly chime.
 ## Notes-zhCN: 简洁的显示日期与时间的 Broker 插件模块
 ## Notes-zhTW: 簡潔的顯示日期與時間的 Broker 插件模組
-## Author: Ethan Centaurai
+## Author: Ravendwyr
 ## Version: @project-version@
 ## SavedVariables: uClockDB
 ## X-Icon: Interface\Icons\Spell_Holy_BorrowedTime
 ## OptionalDeps: Blizzard_TimeManager, Ace3, LibDataBroker-1.1, GroupCalendar, GroupCalendar5
+## X-WoWI-ID: 12552
+## X-Curse-Project-ID: 17745
 
 #@no-lib-strip@
 Lib\LibStub\LibStub.lua
