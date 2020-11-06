@@ -3,7 +3,7 @@
 Minimalistic date/time display for Broker with optional hourly chime.
 
 [![Builder](https://img.shields.io/travis/com/ravendwyr/broker_uclock.svg?label=Build&logo=travis&maxAge=600&style=popout)](https://travis-ci.com/github/Ravendwyr/Broker_uClock)
-[![Version](https://img.shields.io/github/tag-date/ravendwyr/broker_uclock.svg?label=Version&logo=codeigniter&maxAge=600&style=popout)](https://www.curseforge.com/wow/addons/broker-uclock/files/all)
+[![Version](https://img.shields.io/github/tag-date/ravendwyr/broker_uclock.svg?label=Version&logo=curseforge&maxAge=600&style=popout)](https://www.curseforge.com/wow/addons/broker-uclock/files/all)
 [![Tracker](https://img.shields.io/github/issues/ravendwyr/broker_uclock.svg?label=Issues&logo=github&maxAge=600&style=popout)](https://github.com/Ravendwyr/Broker_uClock/issues)
 
 ***
