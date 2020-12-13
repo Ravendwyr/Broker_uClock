@@ -1,4 +1,4 @@
-## Interface: 90001
+## Interface: 90002
 ## Title: Broker uClock
 ## Notes: Lightweight time/date display with optional hourly chime.
 ## Notes-zhCN: 简洁的显示日期与时间的 Broker 插件模块
