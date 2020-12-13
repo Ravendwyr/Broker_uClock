@@ -2,9 +2,9 @@
 
 Minimalistic date/time display for Broker with optional hourly chime.
 
-[![Builder](https://img.shields.io/travis/com/ravendwyr/broker_uclock.svg?label=Build&logo=travis&maxAge=600&style=popout)](https://travis-ci.com/github/Ravendwyr/Broker_uClock)
-[![Version](https://img.shields.io/github/tag-date/ravendwyr/broker_uclock.svg?label=Version&logo=curseforge&maxAge=600&style=popout)](https://www.curseforge.com/wow/addons/broker-uclock/files/all)
-[![Tracker](https://img.shields.io/github/issues/ravendwyr/broker_uclock.svg?label=Issues&logo=github&maxAge=600&style=popout)](https://github.com/Ravendwyr/Broker_uClock/issues)
+[![Builder](https://img.shields.io/github/workflow/status/ravendwyr/broker_uclock/Upload?label=Build&logo=github+actions&style=flat-square)](https://github.com/Ravendwyr/Broker_uClock/actions)
+[![Version](https://img.shields.io/github/v/tag/ravendwyr/broker_uclock?label=Version&logo=curseforge&style=flat-square)](https://www.curseforge.com/wow/addons/broker-uclock/files/all)
+[![Tracker](https://img.shields.io/github/issues/ravendwyr/broker_uclock?label=Issues&logo=github&style=flat-square)](https://github.com/Ravendwyr/Broker_uClock/issues)
 
 ***
 
@@ -32,10 +32,11 @@ Options can be found in the config window accessed by right-clicking the plugin.
 
 ### Support
 
-[![Twitter](https://img.shields.io/twitter/follow/ravendwyr.svg?label=Twitter&logo=twitter&maxAge=600&style=popout)](https://twitter.com/Ravendwyr)
-[![Discord](https://img.shields.io/discord/299308204393889802.svg?label=Discord&logo=discord&maxAge=600&style=popout)](https://discord.gg/XC2REFu)
+[![Twitter](https://img.shields.io/twitter/follow/ravendwyr?label=Twitter&logo=twitter&style=flat-square)](https://twitter.com/Ravendwyr)
+[![Discord](https://img.shields.io/discord/299308204393889802?label=Discord&logo=discord&style=flat-square)](https://top.gg/servers/299308204393889802)
+[![Sponsor](https://img.shields.io/github/sponsors/ravendwyr?label=Sponsors&logo=github+sponsors&style=flat-square)](https://github.com/sponsors/Ravendwyr)
 
-[![Twitch](https://img.shields.io/badge/Twitch-subscribe-yellow.svg?&logo=twitch)](https://www.twitch.tv/subs/ravendwyr)
-[![Crypto](https://img.shields.io/badge/ETH-send-yellow.svg?&logo=ethereum)](https://etherscan.io/address/0x332224Ed82264298B3DC68dAcf643E8Df4abDCC3)
-[![PayPal](https://img.shields.io/badge/PayPal-donate-yellow.svg?logo=paypal)](https://www.paypal.me/Ravendwyr/5gbp)
-[![Coffee](https://img.shields.io/badge/Kofi-buy-yellow.svg?logo=ko-fi)](https://ko-fi.com/Ravendwyr)
+[![Twitch](https://img.shields.io/badge/Twitch-subscribe-yellow?&logo=twitch&style=flat-square)](https://www.twitch.tv/subs/ravendwyr)
+[![Crypto](https://img.shields.io/badge/ETH-send-yellow?&logo=ethereum&style=flat-square)](https://etherscan.io/address/0x332224Ed82264298B3DC68dAcf643E8Df4abDCC3)
+[![PayPal](https://img.shields.io/badge/PayPal-donate-yellow?logo=paypal&style=flat-square)](https://www.paypal.me/Ravendwyr/5gbp)
+[![Coffee](https://img.shields.io/badge/Kofi-buy-yellow?logo=ko-fi&style=flat-square)](https://ko-fi.com/Ravendwyr)
